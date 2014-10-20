@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "_default": {
+            "link": "agent_app"
+        }, 
+        "agent_app": {
+            "applicationId": "U6gB9LUOcvV0JPcDVuBteFjkUvfsT6kHBG6Ql64C", 
+            "masterKey": "LwdDJwxvGUUmqGyMMSZwmkWPpvhoitFaStnULOY7"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.2.18"
+    }
+}

@@ -1,0 +1,67 @@
+<!-- Include the header partial -->
+<% include ../_header %>
+
+
+<section class="app-brief" id="blogs">
+    <div class="container subpage">
+    	<div class="row">
+            <div class="col-md-4">
+                <div id="blogs-search">
+                    <div class="search-heading">
+                        <form action="" method="POST">
+                            <div class="input-group">
+                              <input id="search-txt" type="text" name="keywork" class="form-control" placeholder="Search the blog">
+                              <span class="input-group-addon">
+                                <i class="fa fa-search"></i>
+                              </span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="search-body">
+                        <div class="category">
+                            <div><b>ARCHIVE</b></div>
+                            <div>January</div>
+                            <div>December</div>
+                            <div>November</div>
+                            <div>October</div>
+                            <div>September</div>
+                        </div>
+                        <div class="category">
+                            <div><b>TAGS</b></div>
+                            <div class="<%= (typeof tag !== 'undefined' && tag == 'finance') ? 'active' : '' %>">
+                                <a href="/blog/search/tag/finance">Finance</a></div>
+                            <div class="<%= (typeof tag !== 'undefined'  && tag == 'loans') ? 'active' : '' %>">
+                                <a href="/blog/search/tag/finance">Loans</a></div>
+                            <div class="<%= (typeof tag !== 'undefined'  && tag == 'agents') ? 'active' : '' %>">
+                                <a href="/blog/search/tag/finance">Agents</a></div>
+                            <div class="<%= (typeof tag !== 'undefined'  && tag == 'property') ? 'active' : '' %>">
+                                <a href="/blog/search/tag/finance">Property</a></div>
+                            <div class="<%= (typeof tag !== 'undefined'  && tag == 'technology') ? 'active' : '' %>">
+                                <a href="/blog/search/tag/finance">Technology</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class='col-md-8'> 
+                <% blogs.forEach(function(blog){ %>
+            		<h2 class="blog-title"><%= blog.get('title') %></h2>
+            		<h4><%= blog.createdAt.toDateString() %></h4>
+                    <% if(blog.get('image')){ %>
+        			     <p><img src="<%= blog.get('image')._url %>"></p>
+                    <% } %>
+                    <p><%= blog.get('summary') %></p>
+        			<div class="read-more">
+        				<a class="" href="<%= blog.get('slug') %>">Read More →</a>
+        			</div>
+
+                <% }) %>
+                
+      	     </div>
+    	</div>
+    	<!-- /END ROW -->
+    </div>
+    <!-- /END CONTAINER -->
+</section>
+
+<!-- Include the footer partial -->
+<% include ../_footer %>

@@ -1,0 +1,539 @@
+
+/* --------------------------------------
+=========================================
+GLOBAL STYLES
+=========================================
+-----------------------------------------*/
+
+html {
+    font-size: 100%;
+}
+
+body {
+    background: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    color: #313131;
+    line-height: 28px;
+    text-align: center;
+    overflow-x: hidden !important;
+    margin: auto !important;
+}
+
+
+/* Internet Explorer 10 in Windows 8 and Windows Phone 8 Bug fix */
+
+@-webkit-viewport {
+    width: device-width;
+}
+
+@-moz-viewport {
+    width: device-width;
+}
+
+@-ms-viewport {
+    width: device-width;
+}
+
+@-o-viewport {
+    width: device-width;
+}
+
+@viewport {
+    width: device-width;
+}
+
+a {
+    -webkit-transition: all ease 0.25s;
+            transition: all ease 0.25s;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.btn:focus,
+.btn:active {
+    outline: inherit;
+}
+
+
+/* Other fixes*/
+
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+ul,
+ol {
+    padding-left: 0 !important;
+}
+
+li {
+    list-style: none;
+}
+
+/*---------------------------------------
+   Typography                
+-----------------------------------------*/
+
+/* FONT FACE LOADER */
+@font-face {
+    font-family: 'AvantGardeBold';
+    src: url('../fonts/AvantGarde-Book-Bold.ttf');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AvantGarde';
+    src: url('../fonts/AvantGarde-Book.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AvantGardeMedium';
+    src: url('../fonts/AvantGarde-Book-Medium.ttf');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Lane';
+    src: url('../fonts/lanenar_Lane.eot');
+    src: url('../fonts/lanenar_Lane.eot?#iefix') format('embedded-opentype'), url('../fonts/lanenar_Lane.woff') format('woff'), url('../fonts/lanenar_Lane.ttf') format('truetype'), url('../fonts/lanenar_Lane.svg#Lane') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+ 
+    @font-face {
+        font-family: 'Lane';
+        src: url('../fonts/lanenar_Lane.svg#Lane') format('svg');
+    }
+}
+
+/* HEADINGS */
+
+h1,
+h2 {
+    font-family: 'Lane', sans-serif;
+    font-weight: normal;
+}
+
+h1 {
+    font-size: 3.75rem;
+    line-height: 4.688rem;
+}
+
+h2 {
+    font-size: 3.125rem;
+    line-height: 4.063rem;
+}
+
+h3 {
+    font-size: 24px;
+    line-height: 38px;
+    font-weight: 300;
+}
+
+h4 {
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: 300;
+}
+
+h5 {
+    font-size: 18px;
+    font-weight: 300;
+}
+
+/*---------------------------------------
+   TEXTS               
+-----------------------------------------*/
+
+.white-text {
+    color: #ffffff;
+}
+
+.grey-text {
+    color: grey;
+}
+
+.dark-text {
+    color: #272727;
+}
+
+.grey-bg {
+    background: #F5F5F5 !important;
+}
+
+.blue-bg{
+    background: rgb(100, 165, 236);
+}
+
+.align-left{
+    text-align: left;
+}
+
+.align-rigth{
+    text-align: right;
+}
+
+.align-justify{
+    text-align: justify;
+}
+
+/*---------------------------------------
+   SECTIONS          
+-----------------------------------------*/
+
+.section-header {
+    padding-bottom: 48px;
+}
+
+.section-title {
+    text-align: center;
+}
+
+.section-header h2 {
+    margin-bottom: 20px;
+}
+
+.section-header .section-description {
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* TOP BAR WITH NAVIGATION */
+
+.sticky-navigation {
+    min-height: 145px;
+    background-color: rgba(255,255,255,.9);
+    border: none;
+    padding: 50px 0 0 !important;
+    margin-bottom: 0 !important;
+    position: relative;
+}
+
+.sticky-navigation .main-navigation .current a {
+  color: #000000 !important;
+  position: relative;
+  outline: none;
+}
+
+.sticky-navigation .main-navigation li a {
+  line-height: 30px;
+  font-weight: 400;
+  font-size: 16px;
+  color:#000000;
+  padding: 15px 45px;
+}
+
+.navbar-inverse .navbar-brand {
+    font-size: 32px;
+	color: #3498db;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover,
+.navbar-inverse .navbar-brand:hover{
+    color: #000000;
+    background: none;
+}
+
+.navbar-inverse .navbar-brand:hover {
+	color: #3498db;
+}
+
+.navbar-toggle:hover{
+    background-color: #333;
+}
+
+
+/*---------------------------------------
+   CUSTOM BUTTON              
+-----------------------------------------*/
+
+.standard-button{
+    font-size: 18px;
+    font-weight: 400 !important;
+    border-radius: 4px !important;
+    text-shadow: 0 !important;
+    color: #ffffff;
+    min-width: 150px;
+    border: none;
+    padding: 14px 58px;
+    margin: 5px;
+    -webkit-transition: all ease 0.25s;
+            transition: all ease 0.25s;
+    background-color: rgb(87, 153, 236);
+}
+
+.standard-button:hover{
+    border: none;
+    background-color: #ebebeb;
+}
+
+.image-cover{
+    width: 100%;
+    background-size: cover;
+}
+
+/* INTRO */
+.intro-section{
+    position: relative;
+    width: 100%;
+}
+
+.intro-section .intro {
+    color: #353434;
+    padding: 20px 30px;
+    font-size: 42px;
+    line-height: 55px;
+    background-color: rgba(238, 238, 238, 0.7);;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    margin: 0;
+    left: 0;
+    text-align: justify;
+}
+
+.intro-section .buttons {
+    margin-top: 35px;
+}
+
+.started-btn{
+    position: absolute;
+    left: 50%;
+    border: 1px solid white;
+    bottom: 65px;
+    margin-left: -130px;
+    padding: 19px 83px;
+    background: transparent;
+}
+
+.sign-up-agent-button{
+}
+
+.find-an-agent-button{
+    padding: 8px 9px !important;
+    color: white !important;
+}
+
+.find-an-agent-button:hover{
+    color: #000000 !important;
+}
+/*---------------------------------------
+   SECTION:  FEATURES                 
+-----------------------------------------*/
+
+.features {
+    background: #ffffff;
+}
+
+.features .features-left {
+    text-align: right;
+    margin-top: 26px;
+    margin-bottom: 80px;
+}
+
+.features .features-left .icon-container {
+    float: right;
+    margin-left: 20px;
+}
+
+.features .features-right {
+    text-align: left;
+    margin-top: 26px;
+    margin-bottom: 80px;
+}
+
+.features .features-right .icon-container {
+    float: left;
+    margin-right: 20px;
+}
+
+.features .feature {
+    padding-bottom: 60px;
+    padding-top: 40px;
+}
+
+.features .feature .icon-container {
+    display: block;
+    min-height: 120px;
+    margin-top: 5px;
+}
+
+.features .feature .icon-container .icon {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    line-height: 55px;
+    font-size: 18px;
+    text-align: center;
+    -webkit-transition: all ease-in 0.25s;
+            transition: all ease-in 0.25s;
+    -webkit-background-clip: padding-box;
+           -moz-background-clip: padding;
+            background-clip: padding-box;
+}
+
+.subpage{
+    text-align: justify;
+}
+
+#how-it-work-buyer-seller .block{
+    padding: 0 30px;
+}
+
+.block .icon-number{
+    width: 53px;
+    height: 53px;
+    background-color: rgba(231, 231, 231, 0.7);
+    text-align: center;
+    line-height: 54px;
+    border-radius: 30px;
+    font-size: 30px;
+}
+
+.block .icon-block{
+    font-size: 100px;
+    margin-bottom: 30px;
+    color: grey;
+}
+
+#example-agent-seeker .block,
+#example-agent-dash .block{
+    padding: 0 30px;
+}
+
+#example-agent-seeker .main-contain,
+#example-agent-dash .main-contain{
+    padding: 0 25px;
+}
+
+#how-it-work-agent .item{
+    font-size: 20px;
+	text-align: left;
+	width: 600px;
+	margin: 0 auto;
+	margin-bottom: 40px;
+	line-height: 43px;
+}
+
+#how-it-work-agent .checkbox-icon{
+	background: url('../images/checkbox-icon.png') no-repeat left center;
+	width: 42px;
+	float: left;
+	background-size: contain;
+	height: 42px;
+	margin-right: 50px;
+}
+
+.app-brief {
+    padding-bottom: 20px;
+}
+
+#blogs-search{
+    width: 100%;
+    min-height: 500px;
+    overflow: hidden;
+    background-color: #F5F5F5;
+    border-radius: 6px;
+    padding: 20px;
+}
+
+#blogs-search .search-heading{
+    padding-bottom: 35px;
+    border-bottom: 1px solid #000000;
+    color: grey;
+    font-style: italic;
+}
+
+#blogs-search .search-heading #search-txt{
+    width: 100%;
+    height: 55px;
+}
+
+#blogs-search .search-body .category{
+    margin-top: 30px;
+}
+
+#blogs-search .search-body .category > div{
+    margin: 10px 0;
+}
+
+#blogs-search .search-body .category a{
+    color: #000000;
+}
+
+#blogs-search .search-body .category a:hover,
+#blogs-search .search-body .category > .active{
+    font-weight: 400;
+}
+
+#blogs .blog-title{
+    font-size: 35px;
+}
+/*---------------------------------------
+   SECTION:  FOOTER                
+-----------------------------------------*/
+footer {
+    font-size: 18px;
+}
+.footer-logo { 
+    padding: 35px 35px 30px 35px;
+    width: 100%;
+    color: white;
+    font-size: 24px;
+}
+
+footer .block{
+    padding-left: 35px;
+    padding-right: 35px;
+}
+
+footer .social-icons li {
+    display: inline-block;
+    margin: 5px;
+}
+
+footer .social-icons li:first-child {
+    margin-left: 0;
+}
+
+footer .footer-nav li {
+    margin-bottom: 10px;
+}
+
+footer .social-icons li a {
+    font-size: 30px;
+    color: white;
+}
+
+footer .social-icons li a:hover {
+    color: #2a6496;
+}
+
+footer .footer-nav li a {
+    color: white;
+}
+
+footer .copyright {
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    font-weight: 500;
+}

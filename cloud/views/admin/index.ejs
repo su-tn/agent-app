@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>AgentApp - Admin</title>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+
+        <link rel="icon" href="/images/favicon.ico">
+        <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-touch-icon-114x114.png">
+
+        <link href="/admin/css/select2.css" rel="stylesheet" type="text/css" />
+        <link href="/admin/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/admin/css/font-awesome.min.css" rel="stylesheet">
+        <link href="/admin/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+        <link href="/admin/css/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+        <link href="/admin/css/styles.css" rel="stylesheet" type="text/css" />
+        <link href="/admin/css/AdminLTE.css" rel="stylesheet" type="text/css" />
+        
+        <style type="text/css">
+            #editor_holder textarea, #editor_holder textarea.form-control{
+                height: 300px;
+            }
+        </style>
+    </head>
+    <body class="skin-black">
+        <header class="header">
+            <a href="/" class="logo">
+                AgentApp
+            </a>
+            <nav class="navbar navbar-static-top" role="navigation">
+                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <div class="navbar-right">
+                </div>
+            </nav>
+        </header>
+        <div class="wrapper row-offcanvas row-offcanvas-left">
+            <aside class="left-side sidebar-offcanvas">
+                <section class="sidebar">
+                    <ul class="sidebar-menu">
+                        <li data-bind="click: showPages">
+                            <a href="#">
+                                <i class="fa fa-th"></i> <span>Pages</span>
+                            </a>
+                        </li>
+                        <li data-bind="click: showBlogs">
+                            <a href="#">
+                                <i class="fa fa-stack-exchange"></i> <span>Blogs</span>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </aside>
+            <aside class="right-side">
+                <section class="content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="box box-success">
+                                <div class="box-header">
+                                    <h3 class="box-title" data-bind="text: listTitle"></h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row" data-bind="template: { name: btnAddTmpl() }">
+                                    </div>
+                                    <div class="table-responsive" data-bind="template: {name: tableTmpl()}">
+                                    </div>
+                                </div>
+                                <div class="box-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </aside>
+        </div>
+
+        <div class="modal fade" id="blog-modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- ko template: { name: $root.detailTmpl() } -->
+                    <!-- /ko -->
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="alert-modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" data-bind="with: $root.alert">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title"><span data-bind="text: title"></span></h4>
+                    </div>
+                    <div class="modal-body" data-bind="text: message">
+                    </div>
+                    <div class="modal-footer clearfix">
+                        <button type="button" class="btn btn-small btn-primary" data-dismiss="modal" aria-hidden="true">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/html" id="table-page-tmpl">
+            <table class="table table-bordered table-hover dataTable">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Slug</th>
+                        <th>Order</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: $root.list">
+                    <tr>
+                        <td><a href="#" data-toggle="modal" data-target="#blog-modal" data-bind="text: title, click: detail"></a></td>
+                        <td data-bind="text: slug"></td>
+                        <td data-bind="text: order"></td>
+                        <td>
+                            <div class="btn-remove-color" data-bind="click: $root.deleteBlog"><i class="fa fa-times"></i></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </script>
+        
+        <script type="text/html" id="table-blog-tmpl">
+            <table class="table table-bordered table-hover dataTable">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Slug</th>
+                        <th>Description</th>
+                        <th>Keywords</th>
+                        <th>Is Published</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: list">
+                    <tr>
+                        <td><a href="#" data-toggle="modal" data-target="#blog-modal" data-bind="text: title, click: detail"></a></td>
+                        <td data-bind="text: slug"></td>
+                        <td data-bind="text: description"></td>
+                        <td data-bind="text: keywords"></td>
+                        <td data-bind="text: (isPublished()?'Yes':'No')"></td>
+                        <td>
+                            <div class="btn-remove-color" data-bind="click: $root.deleteBlog"><i class="fa fa-times"></i></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </script>
+
+        <script type="text/html" id="btn-add-page-tmpl">
+            <div class="col-lg-12">
+                <a href="#" data-toggle="modal" data-target="#blog-modal" class="btn btn-small btn-primary" data-bind="click: $root.addPage">Add</a>
+            </div>
+        </script>
+
+        <script type="text/html" id="btn-add-blog-tmpl">
+            <div class="col-lg-12">
+                <a href="#" data-toggle="modal" data-target="#blog-modal" class="btn btn-small btn-primary" data-bind="click: addBlog">Add</a>
+            </div>
+        </script>
+
+        <script type="text/html" id="detail-page-tmpl">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" data-bind="text: (isAdding() ? 'Add' : 'Edit') + ' Page'"></h4>
+            </div>
+            <div class="modal-body" data-bind="with: object">
+                <div class="form-group">
+                    <label class="control-label">Title</label>
+                    <div>
+                        <input id="page-title" type="text" class="form-control" data-bind="value: title" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Slug</label>
+                    <div>
+                        <input type="text" class="form-control" data-bind="value: slug" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Type</label>
+                    <div>
+                        <input type="text" class="form-control" data-bind="value: type" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Order</label>
+                    <div>
+                        <input type="text" class="form-control" data-bind="value: order" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Body</label>
+                    <div>
+                        <textarea id="editor1" name="editor1" rows="10" cols="80" data-bind="value: body"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer clearfix">
+                <a class="btn btn-small btn-primary" href="#" data-toggle="modal" data-target="#alert-modal" data-bind="click: $root.saveObject">Save</a>
+            </div>
+        </script>
+        
+        <script type="text/html" id="detail-blog-tmpl">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" data-bind="text: (isAdding() ? 'Add Blog' : 'Edit Blog')"></h4>
+            </div>
+            <div class="modal-body" data-bind="with: object">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="control-label">Title</label>
+                        <div>
+                            <input type="text" class="form-control" id="blog-title" data-bind="value: title" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Slug</label>
+                        <div>
+                            <input type="text" class="form-control" data-bind="value: slug" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Is Published</label>
+                        <div>
+                            <input id="checkbox-publish" type="checkbox" data-bind="checked: isPublished">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Description</label>
+                        <div>
+                            <input type="text" class="form-control" data-bind="value: description" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Keywords</label>
+                        <div>
+                            <input type="text" class="form-control" data-bind="value: keywords" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Image</label>
+                        <div>
+                            <div data-bind="if: image">
+                                <img data-bind="attr: {src: image()._url}" height="70"/>
+                                <br /><br />
+                            </div>
+                            <input type="file" name="fileselect" class="fileselect form-control" data-image_fied="image"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="control-label">Summary</label>
+                        <div>
+                            <input type="text" class="form-control" data-bind="value: summary" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Body</label>
+                        <div>
+                            <textarea id="editor1" class="form-control" name="editor1" rows="10" cols="80" data-bind="value: body">
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer clearfix">
+                <a class="btn btn-small btn-primary" href="#" data-toggle="modal" data-target="#alert-modal" data-bind="click: $root.saveObject">Save</a>
+            </div>
+        </script>
+
+        <script type="text/javascript" src="/admin/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/admin/js/parse-1.2.18.min.js"></script>
+        <script src="/admin/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="/admin/js/jquery.twbsPagination.min.js" type="text/javascript"></script>
+        <script src="/admin/js/plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
+        <script src="/admin/js/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+        <script src="/admin/js/select2.js" type="text/javascript"></script>
+        <script src="/admin/js/app.js" type="text/javascript"></script>
+        <script src="/admin/js/knockout-2.2.0.js" type="text/javascript"></script>
+        <script src="/admin/js/ckeditor/ckeditor.js" type="text/javascript"></script>
+        <script src="/admin/js/jsoneditor.js" type="text/javascript"></script>
+        <script src="/admin/js/main.js" type="text/javascript"></script>
+
+    </body>
+</html>

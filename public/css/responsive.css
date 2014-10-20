@@ -1,0 +1,159 @@
+/* --------------------------------------
+=========================================
+RESPONSIVE FIXES
+=========================================
+-----------------------------------------*/
+ 
+@media (max-width: 1024px) {
+}
+
+ @media (max-width: 991px) {
+ 
+    
+    body {
+        font-size: 15px;
+        line-height: 26px;
+    }
+    
+    .navbar-nav>li>a {
+        padding: 15px 10px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 991px) {
+    
+    html {
+        font-size: 90%;
+    }
+
+    header .color-overlay {
+        min-height: 560px;
+    }
+
+    .sticky-navigation .navbar-header {
+        width: 100%;
+        position: relative;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .sticky-navigation .navbar-header a {
+        float: none !important;
+    }
+    
+    .sticky-navigation .navbar-header img {
+        max-height: 40px;
+    }
+    
+    .sticky-navigation .main-navigation {
+        text-align: center;
+        width: 100%;
+        padding-top: 0;
+    }
+
+    header .intro-section {
+        padding-top: 10%;
+    }
+}
+
+@media (max-width: 768px) {
+    
+    html {
+        font-size: 80%;
+    }
+
+    body {
+        font-size: 15px;
+        line-height: 26px;
+    }
+
+    header .color-overlay {
+        min-height: 595px;
+    }
+    
+    .navbar-inverse .navbar-nav {
+        padding-left: 10px;
+        line-height: normal;
+        text-align: center;
+    }
+
+    .navbar-inverse .navbar-nav>li {
+        display: inline-block;
+        margin-bottom: 0;
+    }
+
+    .intro-section {
+        padding-top: 9%;
+    }
+
+    .features .feature {
+        margin-bottom: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+ 
+    
+    html {
+        font-size: 65%;
+    }
+
+    .intro-section {
+        padding-top: 2%;
+    }
+
+    .intro-section .intro {
+        margin-bottom: 16px;
+    }
+
+    .intro-section h5 {
+        color: #ffffff;
+    }
+
+    .intro-section .buttons {
+        margin-top: 15px;
+    }
+
+    .standard-button {
+        font-size: 15px;
+        min-width: 100px;
+        padding: 11px 20px 11px 20px;
+    }
+}
+
+@media (max-width: 320px) {
+    
+    html {
+        font-size: 60.5%;
+    }
+    #blogs h3{
+        font-size: 22px;
+        line-height: 32px;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 640px) and  (orientation: landscape) {
+        
+    .full-screen h1 {
+        font-size: 30px !important;
+        line-height: 40px;
+        margin-top: 0;
+        font-weight: bold;
+    }
+    .full-screen .intro-section .intro {
+       margin-bottom: 0;
+            
+    }
+    
+    .full-screen .intro-section h5 {
+        
+        font-size: 14px;
+    }
+    .full-screen .intro-section .buttons { 
+        margin-top: 0;
+    }
+    
+    .full-screen .standard-button {
+        font-size: 14px;
+        padding: 8px 5px;
+    }
+}

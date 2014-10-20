@@ -1,0 +1,38 @@
+<!-- Include the header partial -->
+<% include ../_header %>
+
+<section class="app-brief">
+    <div class="container subpage">
+        <div class="col-xs-4" id="login-form">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form action="" method="POST" role="form">
+                        <h3>Sign In</h3>
+                        <div class="error">
+                            <%= (typeof message !== 'undefined') ? message : '' %>
+                        </div>
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" name="username" class="form-control" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <a href="/org/reset-password" class="float-right">Forgot Password?</a>
+                            <input type="password" name="password" class="form-control" required />
+                        </div>
+                        
+                        <input type="hidden" name="redirectUrl" value="<%= (typeof redirectUrl !== 'undefined') ? redirectUrl : '' %>"/>
+                        <input type="submit" class="btn standard-btn btn-block" value="Sign in using our secure server"/>
+                        <hr />
+                        <a href="#" class="btn btn-block">I need to register for an Org Central account</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    	<!-- /END ROW -->
+    </div>
+    <!-- /END CONTAINER -->
+</section>
+
+<!-- Include the footer partial -->
+<% include ../_footer %>
