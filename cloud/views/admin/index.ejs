@@ -54,6 +54,11 @@
                                 <i class="fa fa-stack-exchange"></i> <span>Blogs</span>
                             </a>
                         </li>
+                        <li data-bind="click: showTags">
+                            <a href="#">
+                                <i class="fa fa-stack-exchange"></i> <span>Tags</span>
+                            </a>
+                        </li>
                     </ul>
                 </section>
             </aside>
@@ -155,6 +160,25 @@
             </table>
         </script>
 
+        <script type="text/html" id="table-tag-tmpl">
+            <table class="table table-bordered table-hover dataTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: $root.list">
+                    <tr>
+                        <td><a href="#" data-toggle="modal" data-target="#blog-modal" data-bind="text: name, click: detail"></a></td>
+                        <td>
+                            <div class="btn-remove-color" data-bind="click: $root.deleteBlog"><i class="fa fa-times"></i></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </script>
+
         <script type="text/html" id="btn-add-page-tmpl">
             <div class="col-lg-12">
                 <a href="#" data-toggle="modal" data-target="#blog-modal" class="btn btn-small btn-primary" data-bind="click: $root.addPage">Add</a>
@@ -164,6 +188,12 @@
         <script type="text/html" id="btn-add-blog-tmpl">
             <div class="col-lg-12">
                 <a href="#" data-toggle="modal" data-target="#blog-modal" class="btn btn-small btn-primary" data-bind="click: addBlog">Add</a>
+            </div>
+        </script>
+
+        <script type="text/html" id="btn-add-tag-tmpl">
+            <div class="col-lg-12">
+                <a href="#" data-toggle="modal" data-target="#blog-modal" class="btn btn-small btn-primary" data-bind="click: $root.addTag">Add</a>
             </div>
         </script>
 
@@ -235,6 +265,14 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="control-label">Tags</label>
+                        <div class="control-group">
+                            <select id="select-tags"
+                                data-bind="options: $root.tags, optionsText: 'name', optionsValue: 'id'" 
+                                multiple></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="control-label">Description</label>
                         <div>
                             <input type="text" class="form-control" data-bind="value: description" />
@@ -275,6 +313,24 @@
             </div>
             <div class="modal-footer clearfix">
                 <a class="btn btn-small btn-primary" href="#" data-toggle="modal" data-target="#alert-modal" data-bind="click: $root.saveObject">Save</a>
+            </div>
+        </script>
+
+        <script type="text/html" id="detail-tag-tmpl">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" data-bind="text: (isAdding() ? 'Add' : 'Edit') + ' Category'"></h4>
+            </div>
+            <div class="modal-body" data-bind="with: object">
+				<div class="form-group">
+					<label class="control-label">Name</label>
+					<div>
+						<input type="text" class="form-control" data-bind="value: name" />
+					</div>
+				</div>
+            </div>
+            <div class="modal-footer clearfix">
+                <a class="btn btn-small btn-primary" href="#" data-bind="click: $root.saveObject">Save</a>
             </div>
         </script>
 

@@ -65,9 +65,13 @@ app.locals.snippet = function(text, length) {
 
 // Show all posts on homepage
 app.get('/', homeController.index);
+app.get('/contact-us', homeController.contact);
+app.post('/contact-us', homeController.contact);
+
 app.get('/blog', blogController.blog);
-app.get('/blog/search/tag/:keyword', blogController.searchByTag);
-app.get('/blog/search/:keyword', blogController.searchByKeyword);
+app.get('/blog/search/tag/:tag', blogController.searchByTag);
+app.get('/blog/search/archive/:archive', blogController.searchByArchive);
+app.post('/blog/search/name', blogController.searchByName);
 app.get('/blog/:slug', blogController.blogDetail);
 
 app.get('/:slug', homeController.showPage);

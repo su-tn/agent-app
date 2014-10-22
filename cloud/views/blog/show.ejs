@@ -4,13 +4,13 @@
 <section class='app-brief' id="blogs">
     <div class='container subpage'>
         <div class='row'>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div id="blogs-search">
                     <div class="search-heading">
-                        <form action="" method="POST">
+                        <form action="/blog/search/name" method="POST" id="search-form">
                             <div class="input-group">
-                              <input id="search-txt" type="text" name="keywork" class="form-control" placeholder="Search the blog">
-                              <span class="input-group-addon">
+                              <input id="search-txt" type="text" name="keyword" class="form-control" placeholder="Search the blog">
+                              <span class="input-group-addon" onclick="searchBlog()">
                                 <i class="fa fa-search"></i>
                               </span>
                             </div>
@@ -19,39 +19,59 @@
                     <div class="search-body">
                         <div class="category">
                             <div><b>ARCHIVE</b></div>
-                            <div>January</div>
-                            <div>December</div>
-                            <div>November</div>
-                            <div>October</div>
-                            <div>September</div>
+                            <% months.forEach(function(t, i){ %>
+                                <div class="">
+                                    <a href="/blog/search/archive/<%= (i + 1) %>"><%= t %></a>
+                                </div>
+                            <% }) %>
                         </div>
                         <div class="category">
                             <div><b>TAGS</b></div>
-                            <div class="<%= (typeof tag !== 'undefined' && tag == 'finance') ? 'active' : '' %>">
-                                <a href="/blog/search/tag/finance">Finance</a></div>
-                            <div class="<%= (typeof tag !== 'undefined'  && tag == 'loans') ? 'active' : '' %>">
-                                <a href="/blog/search/tag/finance">Loans</a></div>
-                            <div class="<%= (typeof tag !== 'undefined'  && tag == 'agents') ? 'active' : '' %>">
-                                <a href="/blog/search/tag/finance">Agents</a></div>
-                            <div class="<%= (typeof tag !== 'undefined'  && tag == 'property') ? 'active' : '' %>">
-                                <a href="/blog/search/tag/finance">Property</a></div>
-                            <div class="<%= (typeof tag !== 'undefined'  && tag == 'technology') ? 'active' : '' %>">
-                                <a href="/blog/search/tag/finance">Technology</a></div>
+                            <% tags.forEach(function(t){ %>
+                                <div class="">
+                                    <a href="/blog/search/tag/<%= t.id %>"><%= t.get('name') %></a>
+                                </div>
+                            <% }) %>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class='col-md-8'> 
+            <div class='col-md-9'> 
                 <h2 class="blog-title"><%= result.get('title') %></h2>
-                <h4><%= result.createdAt.toDateString() %></h4>
+                <h4 class="posted-date"><%= result.postedAt.toDateString() %></h4>
                 <% if(result.get('image')){ %>
     			     <p><img src="<%= result.get('image')._url %>"></p>
                 <% } %>
                 <%- result.get('body') %>
+                
+                <% var tagList = result.get('tags'); %>
+                <% var list = _.map(tags, function(t){ if(tagList.indexOf(t.id) != -1) return ' ' + t.get('name')}) %>
+                    
+                <div class="blog-tags">
+                    <b>TAGS: </b>
+                    <%= _.compact(list) %>
+                </div>
+                
+                <div class="blog-share">
+                    <h4><b>SHARE THIS:</b></h4>
+                    <div class="blog-share-icon">
+                        <a href="#" class="tweet-icon"><i class="fa fa-twitter"></i></a>
+                        <a href="#" class="facebook-icon"><i class="fa fa-facebook"></i></a>
+                        <a href="#" class="envelope-icon"><i class="fa fa-envelope-o"></i></a>
+                        <a href="#" class="print-icon"><i class="fa fa-print"></i></a>
+                        <a href="#" class="plus-icon"><i class="glyphicon glyphicon-plus"></i></a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
+
+<script>
+    $(function(){
+        formatDate('MM.DD.YY');
+    })
+</script>
 
 <!-- Include the footer partial -->
 <% include ../_footer %>

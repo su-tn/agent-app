@@ -1,17 +1,16 @@
 <!-- Include the header partial -->
 <% include ../_header %>
 
-
 <section class="app-brief" id="blogs">
     <div class="container subpage">
     	<div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div id="blogs-search">
                     <div class="search-heading">
-                        <form action="" method="POST">
+                        <form action="/blog/search/name" method="POST" id="search-form">
                             <div class="input-group">
-                              <input id="search-txt" type="text" name="keywork" class="form-control" placeholder="Search the blog">
-                              <span class="input-group-addon">
+                              <input id="search-txt" type="text" name="keyword" class="form-control" placeholder="Search the blog" value="<%= (typeof keyword !== 'undefined') ? keyword : ''%>">
+                              <span class="input-group-addon" onclick="searchBlog()">
                                 <i class="fa fa-search"></i>
                               </span>
                             </div>
@@ -20,40 +19,42 @@
                     <div class="search-body">
                         <div class="category">
                             <div><b>ARCHIVE</b></div>
-                            <div>January</div>
-                            <div>December</div>
-                            <div>November</div>
-                            <div>October</div>
-                            <div>September</div>
+                            <% if(typeof archive == 'undefined'){ %>
+                                <% var archive = ''; %>
+                            <% } %>
+                            <% months.forEach(function(t, i){ %>
+                                <div class="<%= (archive == (i + 1)) ? 'active' : '' %>">
+                                    <a href="/blog/search/archive/<%= (i + 1) %>"><%= t %></a>
+                                </div>
+                            <% }) %>
                         </div>
                         <div class="category">
                             <div><b>TAGS</b></div>
-                            <div class="<%= (typeof tag !== 'undefined' && tag == 'finance') ? 'active' : '' %>">
-                                <a href="/blog/search/tag/finance">Finance</a></div>
-                            <div class="<%= (typeof tag !== 'undefined'  && tag == 'loans') ? 'active' : '' %>">
-                                <a href="/blog/search/tag/finance">Loans</a></div>
-                            <div class="<%= (typeof tag !== 'undefined'  && tag == 'agents') ? 'active' : '' %>">
-                                <a href="/blog/search/tag/finance">Agents</a></div>
-                            <div class="<%= (typeof tag !== 'undefined'  && tag == 'property') ? 'active' : '' %>">
-                                <a href="/blog/search/tag/finance">Property</a></div>
-                            <div class="<%= (typeof tag !== 'undefined'  && tag == 'technology') ? 'active' : '' %>">
-                                <a href="/blog/search/tag/finance">Technology</a></div>
+                            <% if(typeof tag == 'undefined'){ %>
+                                <% var tag = ''; %>
+                            <% } %>
+                            <% tags.forEach(function(t){ %>
+                                <div class="<%= (tag == t.id) ? 'active' : '' %>">
+                                    <a href="/blog/search/tag/<%= t.id %>"><%= t.get('name') %></a>
+                                </div>
+                            <% }) %>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class='col-md-8'> 
+            <div class='col-md-9'> 
                 <% blogs.forEach(function(blog){ %>
-            		<h2 class="blog-title"><%= blog.get('title') %></h2>
-            		<h4><%= blog.createdAt.toDateString() %></h4>
-                    <% if(blog.get('image')){ %>
-        			     <p><img src="<%= blog.get('image')._url %>"></p>
-                    <% } %>
-                    <p><%= blog.get('summary') %></p>
-        			<div class="read-more">
-        				<a class="" href="<%= blog.get('slug') %>">Read More →</a>
-        			</div>
-
+                    <div class="item">
+                		<h2 class="blog-title"><%= blog.get('title') %></h2>
+                		<h4 class="posted-date"><%= blog.postedAt.toISOString() %></h4>
+                        <% if(blog.get('image')){ %>
+            			     <p><img src="<%= blog.get('image')._url %>"></p>
+                        <% } %>
+                        <p><%= blog.get('summary') %></p>
+            			<div class="read-more">
+            				<a class="" href="<%= blog.get('slug') %>">Read More →</a>
+            			</div>
+                    </div>
                 <% }) %>
                 
       	     </div>
@@ -62,6 +63,11 @@
     </div>
     <!-- /END CONTAINER -->
 </section>
+<script>
+    $(function(){
+        formatDate('MM.DD.YY');
+    })
+</script>
 
 <!-- Include the footer partial -->
 <% include ../_footer %>

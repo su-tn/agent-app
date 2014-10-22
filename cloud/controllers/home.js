@@ -21,3 +21,7 @@ exports.showPage = function(req, res) {
         res.send(500, 'Failed loading page');
     });
 };
+
+exports.contact = function(req, res) {
+	res.render('home/contact');
+};

@@ -172,11 +172,11 @@ h5 {
 }
 
 .grey-bg {
-    background: #F5F5F5 !important;
+    background: #EBEBEB !important;
 }
 
 .blue-bg{
-    background: rgb(100, 165, 236);
+    background: #3498DB !important;
 }
 
 .align-left{
@@ -185,6 +185,10 @@ h5 {
 
 .align-rigth{
     text-align: right;
+}
+
+.align-center{
+    text-align: center;
 }
 
 .align-justify{
@@ -264,6 +268,14 @@ h5 {
    CUSTOM BUTTON              
 -----------------------------------------*/
 
+.standard-nocolor-button{
+    font-size: 18px;
+    text-shadow: 0 !important;
+    min-width: 150px;
+    padding: 14px 58px;
+    margin: 5px;
+}
+
 .standard-button{
     font-size: 18px;
     font-weight: 400 !important;
@@ -276,7 +288,7 @@ h5 {
     margin: 5px;
     -webkit-transition: all ease 0.25s;
             transition: all ease 0.25s;
-    background-color: rgb(87, 153, 236);
+    background-color: #3498DB;
 }
 
 .standard-button:hover{
@@ -300,7 +312,8 @@ h5 {
     padding: 20px 30px;
     font-size: 42px;
     line-height: 55px;
-    background-color: rgba(238, 238, 238, 0.7);;
+    background-color: #EDEEEE;
+    opacity: 0.7;
     width: 100%;
     position: absolute;
     top: 0;
@@ -400,7 +413,7 @@ h5 {
 .block .icon-number{
     width: 53px;
     height: 53px;
-    background-color: rgba(231, 231, 231, 0.7);
+    background-color: #F3F3F3;
     text-align: center;
     line-height: 54px;
     border-radius: 30px;
@@ -449,21 +462,40 @@ h5 {
     width: 100%;
     min-height: 500px;
     overflow: hidden;
-    background-color: #F5F5F5;
+    background-color: #EBEBEB;
     border-radius: 6px;
     padding: 20px;
 }
 
 #blogs-search .search-heading{
     padding-bottom: 35px;
-    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid #B1B1B1;
     color: grey;
     font-style: italic;
+}
+
+#blogs-search .search-heading .input-group{
+	width: 100%;
 }
 
 #blogs-search .search-heading #search-txt{
     width: 100%;
     height: 55px;
+    border: none;
+    border-radius: 4px;
+    padding-right: 50px;
+}
+
+#blogs-search .search-heading .input-group-addon{
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    font-size: 22px;
+    color: #B8B8B8;
+    padding: 16px 32px 16px 14px;
+    background-color: transparent;
+    border: none;
 }
 
 #blogs-search .search-body .category{
@@ -485,6 +517,67 @@ h5 {
 
 #blogs .blog-title{
     font-size: 35px;
+    line-height: 35px;
+}
+
+#blogs .item{
+    padding-bottom: 30px;
+    border-bottom: 1px solid #B2B2B2;
+}
+
+#blogs .item:last-child{
+    border-bottom: none;
+}
+
+.blog-share-icon a{
+    font-size: 24px;
+    color: white;
+}
+
+.blog-share-icon .tweet-icon{
+    background-color: #39A7D6;
+    padding: 2px 6px;
+}
+
+.blog-share-icon .facebook-icon{
+    background-color: #315795;
+    padding: 2px 11px;
+}
+
+.blog-share-icon .envelope-icon{
+    background-color: #748A8D;
+    padding: 2px 5px;
+}
+
+.blog-share-icon .print-icon{
+    background-color: #748A8D;
+    padding: 2px 6px;
+}
+
+.blog-share-icon .plus-icon{
+    background-color: #F36B46;
+    padding: 2px 5px;
+}
+
+.blog-share-icon a:hover {
+    background-color: #666666;
+}
+
+#contact_form input, #contact_form textarea {
+    border: none;
+    box-shadow: none;
+    background-color: #EBEBEB;
+}
+
+#contact_form input{
+    width: 40%;
+}
+
+.page-header{
+    padding: 40px 25px 30px;
+    background-color: #3498DB;
+    color: #000000;
+    
 }
 /*---------------------------------------
    SECTION:  FOOTER                
@@ -518,7 +611,7 @@ footer .footer-nav li {
 }
 
 footer .social-icons li a {
-    font-size: 30px;
+    font-size: 34px;
     color: white;
 }
 
