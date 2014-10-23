@@ -3,28 +3,30 @@
 
 <section class="app-brief">
     <div class="container subpage">
-        <div class="col-xs-4" id="login-form">
+        <div class="col-sm-10 col-md-6 col-lg-4" id="login-form">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <form action="" method="POST" role="form">
                         <h3>Sign In</h3>
                         <div class="error">
-                            <%= (typeof message !== 'undefined') ? message : '' %>
+                            <%= (typeof error !== 'undefined') ? error : '' %>
                         </div>
                         <div class="form-group">
-                            <label>Username</label>
-                            <input type="text" name="username" class="form-control" required/>
+                            <label>Email</label>
+                            <input type="text" name="email" id="email" class="form-control" required/>
+                            <span class="error"></span>
                         </div>
                         <div class="form-group">
                             <label>Password</label>
-                            <a href="/org/reset-password" class="float-right">Forgot Password?</a>
-                            <input type="password" name="password" class="form-control" required />
+                            <input type="password" name="password" id="password" class="form-control" required />
+                            <span class="error"></span>
                         </div>
                         
                         <input type="hidden" name="redirectUrl" value="<%= (typeof redirectUrl !== 'undefined') ? redirectUrl : '' %>"/>
-                        <input type="submit" class="btn standard-btn btn-block" value="Sign in using our secure server"/>
+                        
+                        <input type="submit" onclick="submitLogin()" class="btn btn-block login-button" value="SUBMIT"/>
                         <hr />
-                        <a href="#" class="btn btn-block">I need to register for an Org Central account</a>
+                        <a href="/signup-1" class="btn btn-block">Sign Up</a>
                     </form>
                 </div>
             </div>

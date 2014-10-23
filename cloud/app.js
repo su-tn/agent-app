@@ -68,6 +68,20 @@ app.get('/', homeController.index);
 app.get('/contact-us', homeController.contact);
 app.post('/contact-us', homeController.contact);
 
+app.get('/signup-1', accountController.signup1);
+app.post('/signup-1', accountController.signup1);
+app.get('/signup-2', accountController.signup2);
+app.post('/signup-2', accountController.signup2);
+app.get('/signup-agent', accountController.signupAgent);
+app.get('/signup-agent-verify', accountController.signupAgentVerify);
+app.post('/signup-agent-verify', accountController.signupAgentVerify);
+app.get('/signup-2-agent', accountController.signup2Agent);
+
+app.get('/login', accountController.login);
+app.post('/login', accountController.login);
+app.get('/logout', accountController.logout);
+app.get('/dash-matches', accountController.dashMatches);
+
 app.get('/blog', blogController.blog);
 app.get('/blog/search/tag/:tag', blogController.searchByTag);
 app.get('/blog/search/archive/:archive', blogController.searchByArchive);

@@ -14,7 +14,17 @@ exports.commonRender = function(req, res, viewUrl, data){
     queryTag.find().then(function(tags){
         data.months = months;
         data.tags = tags;
-        res.render(viewUrl, data);
+        
+        if (Parse.User.current()) {
+    		Parse.User.current().fetch().then(function(user) {
+    			console.log(user);
+                data.isAuthenticated = true;
+                res.render(viewUrl, data);
+            });
+        } else {
+            res.render(viewUrl, data);
+        }
+        
     },
     function() {
         res.send(500, 'Failed loading page');

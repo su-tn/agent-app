@@ -509,8 +509,8 @@ Parse.Cloud.define("sendMail", function(request, response) {
 			message: {
 				html: body,
 				subject: emailDict.subject || result.get('subject'),
-				from_email: "noreply@makeastand.com",
-				from_name: "Make A Stand",
+				from_email: "noreply@agentapp.com",
+				from_name: "AgentApp",
 				to: emailDict.to
 			},
 			async: true

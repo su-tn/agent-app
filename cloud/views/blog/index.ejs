@@ -46,7 +46,7 @@
                 <% blogs.forEach(function(blog){ %>
                     <div class="item">
                 		<h2 class="blog-title"><%= blog.get('title') %></h2>
-                		<h4 class="posted-date"><%= blog.postedAt.toISOString() %></h4>
+                		<h4 class="posted-date"><%= blog.get('postedAt').toDateString() %></h4>
                         <% if(blog.get('image')){ %>
             			     <p><img src="<%= blog.get('image')._url %>"></p>
                         <% } %>

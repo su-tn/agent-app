@@ -58,7 +58,12 @@
 					<li><a href="/how-it-works">How is Works</a></li>
 					<li><a href="/faq">FAQ</a></li>
 					<li><a href="/blog">Blog</a></li>
-					<li><a href="#">Sign In</a></li>
+					<li>
+                        <% if(typeof isAuthenticated == 'undefined'){ %>
+                            <a href="/login">Sign In</a>/<a href="/signup-1">Sign Up</a></li>
+                        <% } else { %>
+                            <a href="/logout">Sign Out</a>
+                        <% } %>
 					<li><a href="#" class="btn btn-default standard-button find-an-agent-button">Find an Agent</a></li>
 				</ul>
 			</div>

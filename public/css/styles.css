@@ -134,8 +134,8 @@ h1 {
 }
 
 h2 {
-    font-size: 3.125rem;
-    line-height: 4.063rem;
+    font-size: 2.5rem;
+    line-height: 3.063rem;
 }
 
 h3 {
@@ -195,6 +195,32 @@ h5 {
     text-align: justify;
 }
 
+.page-title{
+    padding: 35px 25px 25px;
+    background-color: #3498DB;
+    color: #ffffff;
+    font-weight: 400;
+    font-size: 35px;
+    line-height: 35px;
+    width: 100%;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+}
+
+.page-body{
+    margin-top: 55px;
+    padding-left: 35px;
+}
+
+form span.error {
+    color: red;
+    display: none;
+}
+
+form input.error {
+    border: 1px solid red !important;
+}
+
 /*---------------------------------------
    SECTIONS          
 -----------------------------------------*/
@@ -236,12 +262,16 @@ h5 {
   outline: none;
 }
 
+.sticky-navigation .main-navigation li{
+  padding: 0px 25px;
+}
+
 .sticky-navigation .main-navigation li a {
   line-height: 30px;
   font-weight: 400;
   font-size: 16px;
   color:#000000;
-  padding: 15px 45px;
+  display: inline-block;
 }
 
 .navbar-inverse .navbar-brand {
@@ -269,7 +299,7 @@ h5 {
 -----------------------------------------*/
 
 .standard-nocolor-button{
-    font-size: 18px;
+    font-size: 16px;
     text-shadow: 0 !important;
     min-width: 150px;
     padding: 14px 58px;
@@ -277,7 +307,7 @@ h5 {
 }
 
 .standard-button{
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400 !important;
     border-radius: 4px !important;
     text-shadow: 0 !important;
@@ -289,11 +319,6 @@ h5 {
     -webkit-transition: all ease 0.25s;
             transition: all ease 0.25s;
     background-color: #3498DB;
-}
-
-.standard-button:hover{
-    border: none;
-    background-color: #ebebeb;
 }
 
 .image-cover{
@@ -346,6 +371,19 @@ h5 {
 
 .find-an-agent-button:hover{
     color: #000000 !important;
+}
+
+.signin-linked-button{
+    padding: 6px 15px;
+    background-color: #106699;
+}
+.signin-linked-button i{
+    margin-right: 15px;
+}
+
+.standard-button:hover{
+    border: none;
+    background-color: #ebebeb;
 }
 /*---------------------------------------
    SECTION:  FEATURES                 
@@ -404,6 +442,7 @@ h5 {
 
 .subpage{
     text-align: justify;
+    min-height: 500px;
 }
 
 #how-it-work-buyer-seller .block{
@@ -457,6 +496,10 @@ h5 {
 .app-brief {
     padding-bottom: 20px;
 }
+
+/*---------------------------------------
+   SECTION:  BLOG                
+-----------------------------------------*/
 
 #blogs-search{
     width: 100%;
@@ -563,7 +606,14 @@ h5 {
     background-color: #666666;
 }
 
-#contact_form input, #contact_form textarea {
+/*---------------------------------------
+   SECTION:  CONTACT PAGE                
+-----------------------------------------*/
+
+#contact_form input,
+#contact_form textarea,
+#signup_1_form input,
+#signup_agent_verify_form input {
     border: none;
     box-shadow: none;
     background-color: #EBEBEB;
@@ -573,11 +623,52 @@ h5 {
     width: 40%;
 }
 
-.page-header{
-    padding: 40px 25px 30px;
+#login-form{
+    float: none;
+    margin: 0 auto;
+}
+
+#login-form .login-button{
+    color: white;
     background-color: #3498DB;
+}
+
+#login-form .login-button:hover {
     color: #000000;
-    
+    background-color: #ebebeb;
+}
+/*--------------------------------------
+    PAGE: SIGNUP
+---------------------------------------*/
+.step {
+	background-color: #E4E4E4;
+	color: #D3D3D3;
+	line-height: 35px;
+	font-weight: bold;
+	margin-right: 3px;
+    text-align: center;
+	font-size: 18px;
+}
+
+.step.active, .step.current{
+	background-color: #95C800;
+	color: #95C800;
+}
+
+.step > div{
+    width: 35px;
+    height: 35px;
+    margin: 7px auto 8px;
+    border-radius: 30px;
+}
+
+.step.current > div{
+	background-color: #ffffff;
+	font-size: 20px;
+}
+
+.step.active > div{
+	color: #E0EEAF;
 }
 /*---------------------------------------
    SECTION:  FOOTER                

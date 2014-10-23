@@ -4,15 +4,13 @@
 
 <section class="app-brief">
     <div class="container subpage">
-    	<div class="section-title">
-    		<h3>
+    	<div class="row">
+            <div class="page-title">
                 <% if(page){ %>
                 <%- page.get('title') %>
                 <% } %>
-            </h3>
-    	</div>
-    	<div class="row">
-            <div class='col-md-12 align-justify'>
+            </div>
+            <div class='col-md-12 page-body'>
                 <% if(page){ %>
                 <%- page.get('body') %>
                 <% } %>
