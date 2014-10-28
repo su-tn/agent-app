@@ -9,10 +9,20 @@ exports.login = function(req, res) {
 		Parse.User.logIn(username, req.body.password).then(function(user) {
 			// Login succeeded, redirect to homepage.
 			// parseExpressCookieSession will automatically set cookie.
-			if (redirectUrl) {
-				res.redirect(redirectUrl);
-			} else {
-				res.redirect('/dash-matches');
+            if (redirectUrl) {
+            	res.redirect(redirectUrl);
+            } else {
+                var userType = user.get('userType');
+                
+                if(userType == 1){   //buyer
+                    res.redirect('/dash-buyer');
+                } else if(userType == 2){   //seller
+                    res.redirect('/dash-seller');
+                } else if(userType == 3){   //agent
+                    res.redirect('/dash-agent');
+                } else {
+                    res.redirect('/signup-2');
+                }
 			}
 		}, function(error) {
 			// Login failed, redirect back to login form.
@@ -128,18 +138,6 @@ exports.signup2 = function(req, res) {
 
 };
 
-exports.dashMatches = function(req, res) {
-    if (Parse.User.current()) {
-		Parse.User.current().fetch().then(function(user) {
-			console.log(user);
-            
-            res.render('account/dashMatches', {isAuthenticated: true});
-        });
-    } else {
-        res.redirect('signup-1');
-    }
-};
-
 exports.signupAgent = function(req, res) {
     res.render('account/signupAgent');
 };
@@ -189,5 +187,29 @@ exports.signupAgentVerify = function(req, res) {
 		});
     } else {
         res.render('account/signupAgentVerify');
+    }
+};
+
+exports.dashSeller = function(req, res) {
+    if(res.locals.isAuthenticated == true) {
+        res.render('dashboard/dashSeller', {isAuthenticated: true});
+    } else {
+        res.redirect('login');
+    }
+};
+
+exports.dashBuyer = function(req, res) {
+    if(res.locals.isAuthenticated == true) {
+        res.render('dashboard/dashBuyer', {isAuthenticated: true});
+    } else {
+        res.redirect('login');
+    }
+};
+
+exports.dashAgent = function(req, res) {
+    if(res.locals.isAuthenticated == true) {
+        res.render('dashboard/dashAgent', {isAuthenticated: true});
+    } else {
+        res.redirect('login');
     }
 };

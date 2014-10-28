@@ -31,7 +31,6 @@
     
     <!-- JQUERY -->
     <script src="/js/jquery-1.11.1.min.js"></script>
-    <script src="/js/moment.js"></script>
     <script src="/js/custom.js"></script>
 </head> 
 <body>
@@ -59,7 +58,7 @@
 					<li><a href="/faq">FAQ</a></li>
 					<li><a href="/blog">Blog</a></li>
 					<li>
-                        <% if(typeof isAuthenticated == 'undefined'){ %>
+                        <% if(typeof isAuthenticated == 'undefined' || !isAuthenticated){ %>
                             <a href="/login">Sign In</a>/<a href="/signup-1">Sign Up</a></li>
                         <% } else { %>
                             <a href="/logout">Sign Out</a>

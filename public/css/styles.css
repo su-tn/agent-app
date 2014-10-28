@@ -613,7 +613,9 @@ form input.error {
 #contact_form input,
 #contact_form textarea,
 #signup_1_form input,
-#signup_agent_verify_form input {
+#signup_agent_verify_form input,
+#dash_qs_form input,
+#dash_qs_form textarea {
     border: none;
     box-shadow: none;
     background-color: #EBEBEB;
@@ -670,6 +672,229 @@ form input.error {
 .step.active > div{
 	color: #E0EEAF;
 }
+/*---------------------------------------
+   SECTION:  DASH-MATCHES                
+-----------------------------------------*/
+.dash-matches-heading {
+    background-color: #3498DB;
+    border-radius: 4px;
+    padding: 20px 40px 10px 40px;
+    overflow: hidden;
+    color: white;
+    margin: 0 0 10px;
+}
+
+.dash-matches-heading .dash-proccess{
+    height: 45px;
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.dash-matches-heading .dash-proccess > div{
+    width: 20%;
+    background-color: #1E7BC7;
+    height: 100%;
+    border-top-left-radius: 9px;
+    border-bottom-left-radius: 9px;
+    line-height: 45px;
+    font-size: 14px;
+}
+
+.dash-matches-heading .continue-button{
+    border: 2px solid white;
+    margin: 7px 0;
+    float: right;
+}
+
+.dash-matches-body .panel-left{
+    min-height: 600px;
+    background-color: #EBEBEB;
+    border-radius: 4px;
+    padding-top: 30px;
+}
+
+.dash-matches-body .panel-left ul{
+    margin-left: 30px;
+    margin-right: -15px;
+}
+
+.dash-matches-body .panel-left li{
+    margin-bottom: 10px;
+}
+
+.dash-matches-body .panel-left li a{
+    color: #000000;
+    width: 100%;
+    padding-left: 20px;
+    line-height: 58px;
+    display: block;
+}
+
+.dash-matches-body .panel-left li.active{
+	background-color: white;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+.dash-matches-body .dash-option{
+    background-color: #EBEBEB;
+    border: none;
+    padding: 5px;
+    border-radius: 4px;
+    width: 80%;
+}
+
+.dash-matches-body #search-matches-form input{
+    width: 100%;
+    font-style: italic;
+    padding: 3px 35px 3px 3px;
+}
+
+.dash-matches-body #search-matches-form i{
+    position: absolute;
+    top: 0;
+    right: 15px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #878787;
+    padding: 7px 10px;
+}
+
+.dash-matches-body .matches-item{
+    margin: 20px 0 30px 0;
+}
+
+.dash-matches-body .matches-item .description{
+    color: #6B6B6B;
+    font-weight: 400;
+}
+
+.dash-matches-body .matches-item .rate{
+    color: #AFB1AD;
+}
+
+.dash-matches-body .matches-item .avatar{
+    width: 75px;
+    height: 75px;
+    font-size: 55px;
+    background-color: #F2F4F6;
+    color: #CCCCCC;
+    border-radius: 40px;
+    text-align: center;
+    line-height: 70px;
+}
+
+.dash-matches-body .matches-item .share-connection{
+    width: 25px;
+    height: 25px;
+    font-size: 18px;
+    background-color: #F2F4F6;
+    color: #CCCCCC;
+    border-radius: 40px;
+    text-align: center;
+    line-height: 22px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.dash-matches-body .matches-item .progess{
+    width: 100%;
+    height: 50px;
+    border: 1px solid #40C353;
+    border-radius: 5px;
+    color: white;
+    font-size: 40px;
+    line-height: 45px;
+}
+
+.dash-matches-body .matches-item .progess > div{
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    background-color: #40C353;
+    height: 100%;
+}
+
+.dash-matches-body .matches-item .btn{
+    width: 100%;
+    height: 50px;
+    background-color: #D1D1D1;
+    color: white;
+    line-height: 35px;
+    text-align: center;
+}
+
+.dash-matches-body .matches-item .btn.tapped{
+    background-color: #E89C30;
+}
+
+.dash-matches-body .matches-item .btn.received{
+    background-color: #C53E3E;
+}
+
+.dash-matches-body .matches-item .btn.proposal{
+    background-color: #C53E3E;
+    white-space: normal;
+    line-height: 16px;
+}
+
+
+/*---------------------------------------
+   SECTION:  MODAL - view-proposal                
+-----------------------------------------*/
+
+#view-proposal .modal-body > .row{
+    padding-left: 30px;
+    padding-right: 35px;
+}
+
+#view-proposal .modal-heading{
+    font-weight: bold;
+}
+
+#view-proposal .modal-avatar{
+    margin: 25px 0 35px 0;
+    font-style: italic;
+}
+
+#view-proposal .modal-avatar img,
+#view-proposal .modal-avatar div{
+    display: inline-block;
+}
+
+#view-proposal .view-proposal-button{
+    margin-bottom: 60px;
+}
+
+#view-proposal .footer-buttons .btn{
+    min-width: 100%;
+    padding: 12px 0;
+}
+
+#view-proposal .footer-buttons .pass-button{
+    background-color: #71C8C9;
+}
+
+#view-proposal .footer-buttons .chat-button{
+    background-color: #A83333;
+}
+
+#view-proposal .footer-buttons .select-button{
+    background-color: #69DB35;
+}
+
+#view-proposal .footer-buttons .pass-button,
+#view-proposal .footer-buttons .chat-button,
+#view-proposal .footer-buttons .select-button{
+    border: none;
+    background-color: #ebebeb;
+}
+
+/*---------------------------------------
+   SECTION:  FOOTER                
+-----------------------------------------*/
+
+
 /*---------------------------------------
    SECTION:  FOOTER                
 -----------------------------------------*/

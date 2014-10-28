@@ -38,7 +38,19 @@ app.use(parseExpressCookieSession({ cookie: { maxAge: 3600000 } }));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
  
-
+app.use(function(req, res, next) {
+    // Custom middleware
+    if (Parse.User.current()) {
+		Parse.User.current().fetch().then(function(user) {
+			console.log(user);
+            res.locals.isAuthenticated = true;
+            next();
+        });
+    } else {
+        res.locals.isAuthenticated = false;
+        next();
+    }
+});
 // Note that we do not write app.use(basicAuth) here because we want some routes
 // (e.g. display all blog posts) to be accessible to the public.
 
@@ -49,9 +61,11 @@ app.locals.hex_md5 = md5.hex_md5;
 app.locals.userEmail = userEmail;
 app.locals.userDisplayName = userDisplayName;
 app.locals.userDescription = userDescription;
-app.locals.formatTime = function(time) {
-  return moment(time).format('MMMM Do YYYY, h:mm a');
+app.locals.formatTime = function(time, format) {
+    if(!format) format = 'MMMM Do YYYY, h:mm a';
+  return moment(time).format(format);
 };
+app.locals.isAuthenticated = false;
 // Generate a snippet of the given text with the given length, rounded up to the
 // nearest word.
 app.locals.snippet = function(text, length) {
@@ -80,7 +94,9 @@ app.get('/signup-2-agent', accountController.signup2Agent);
 app.get('/login', accountController.login);
 app.post('/login', accountController.login);
 app.get('/logout', accountController.logout);
-app.get('/dash-matches', accountController.dashMatches);
+app.get('/dash-seller', accountController.dashSeller);
+app.get('/dash-buyer', accountController.dashBuyer);
+app.get('/dash-agent', accountController.dashAgent);
 
 app.get('/blog', blogController.blog);
 app.get('/blog/search/tag/:tag', blogController.searchByTag);

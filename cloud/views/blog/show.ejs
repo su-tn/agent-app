@@ -38,7 +38,7 @@
             </div>
             <div class='col-md-9'> 
                 <h2 class="blog-title"><%= result.get('title') %></h2>
-                <h4 class="posted-date"><%= result.get('postedAt').toDateString() %></h4>
+                <h4><%= formatTime(result.get('postedAt').toDateString(), 'MM.DD.YY') %></h4>
                 <% if(result.get('image')){ %>
     			     <p><img src="<%= result.get('image')._url %>"></p>
                 <% } %>
@@ -66,12 +66,6 @@
         </div>
     </div>
 </section>
-
-<script>
-    $(function(){
-        formatDate('MM.DD.YY');
-    })
-</script>
 
 <!-- Include the footer partial -->
 <% include ../_footer %>

@@ -1,0 +1,102 @@
+<div class="col-lg-12">
+    <div class="col-md-8">
+        <h3>Build our your profile to improve your matches</h3>
+        <br /><br />
+        <form rel="form" method="POST" id="dash_qs_form">
+            <div class="form-group">
+                <label>Is English your first language? If not please select 
+                    the language you prefer for transacting in real estate</label>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="language" value="en" checked=""> English is my first language
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="language" value="es"> Spanish</label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="language" value="ja"> Japanese</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>What's the address of the property?</label>
+                <textarea class="form-control" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label>What type of property are you selling?</label>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="selling" value="en" checked=""> Land
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="selling" value="es"> Residential</label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="selling" value="ja"> Commercial</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>How important is it that your realtor has sold properties in your target area?</label>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="target_area" value="en" checked=""> Important
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="target_area" value="es"> Not important</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>How important is it that your realtor has sold properties in your price range?</label>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="price_range" value="en" checked=""> Important
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="price_range" value="es"> Not important</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>How important is it that your realtor has sold similar types of investment property?</label>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="investment" value="1" checked=""> Important
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="investment" value="0"> Not important</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>How important is it to you that your agent has not had any ethics 
+                    complaints filed against them with the ethic board?</label>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="ethics" value="1" checked=""> Important
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="ethics" value="0"> Not important</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Describe your property and any special requirements you may have in selecting an agent:</label>
+                <textarea class="form-control" rows="3"></textarea>
+            </div>
+            <div class="form-group align-center">
+                <a class="btn standard-nocolor-button" onclick="clearForm('#dash_qs_form')">Clear form</a>
+                <button type="button" onclick="" class="btn btn-default standard-button">Next</button>
+            </div>
+        </form>
+    </div>
+</div>

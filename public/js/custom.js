@@ -6,18 +6,11 @@ var searchBlog = function(e){
     $('#search-form').submit();
 }
 
-var formatDate = function(format){
-    $('.posted-date').each(function(i, e){
-       var a = moment(new Date($(e).text())).format(format);
-       $(e).text(a);
-    })
-}
-
 var clearForm = function(formId){
     $(formId + ' input').val('');
     $(formId + ' textarea').val('');
     $("input[type=checkbox]").attr("checked", false);
-    $("input[type=radio]").attr("checked", false);
+    //$("input[type=radio]").attr("checked", false);
     return false;
 }
 
@@ -168,3 +161,7 @@ var signupAgentVerify = function(){
         } 
     })
 }
+
+$(function(){
+    $('.show-tooltip').tooltip();
+})
