@@ -7,7 +7,7 @@ var searchBlog = function(e){
 }
 
 var clearForm = function(formId){
-    $(formId + ' input').val('');
+    $(formId + ' input:not(.hidden-input)').val('');
     $(formId + ' textarea').val('');
     $("input[type=checkbox]").attr("checked", false);
     //$("input[type=radio]").attr("checked", false);
@@ -159,6 +159,22 @@ var signupAgentVerify = function(){
         } else {
             window.location.href='/signup-2-agent';
         } 
+    })
+}
+
+var updateProfile = function(){
+    $('.loading_content').show();
+    var data = {
+        firstName: $('#first-name').val(),
+        lastName: $('#last-name').val(),
+        agentId: $('#agent-id').val(),
+        password: $('#password').val()
+    }
+    
+    $.post('account/update-profile', data, function(res){
+        console.log(res);
+        $('.loading_content').hide();
+        if(res.error) $('.error').text(error);
     })
 }
 

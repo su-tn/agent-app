@@ -72,6 +72,26 @@ exports.resetPassword = function(req, res) {
 	}
 };
 
+exports.updateProfile = function(req, res) {
+    if (Parse.User.current()) {
+		Parse.User.current().fetch().then(function(user) {
+			console.log(user);
+            if(req.body.firstName) user.set('firstName', req.body.firstName);
+            if(req.body.lastName) user.set('lastName', req.body.lastName);
+            if(req.body.agentId) user.set('agentId', req.body.agentId);
+            if(req.body.password) user.set('password', req.body.password);
+            user.save().then(function(user){
+                res.json({result: 'success'});
+            }, function(error){
+                console.error(error);
+                res.json({error: error.message});
+            })
+        })
+    } else {
+        res.json({error: 'User is not login'});
+    }
+}
+
 exports.signup1 = function(req, res) {
     if(req.body.email){
 		var user = new Parse.User();

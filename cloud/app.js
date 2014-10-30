@@ -44,6 +44,7 @@ app.use(function(req, res, next) {
 		Parse.User.current().fetch().then(function(user) {
 			console.log(user);
             res.locals.isAuthenticated = true;
+            res.locals.user = user;
             next();
         });
     } else {
@@ -61,11 +62,11 @@ app.locals.hex_md5 = md5.hex_md5;
 app.locals.userEmail = userEmail;
 app.locals.userDisplayName = userDisplayName;
 app.locals.userDescription = userDescription;
+app.locals.isAuthenticated = false;
 app.locals.formatTime = function(time, format) {
     if(!format) format = 'MMMM Do YYYY, h:mm a';
   return moment(time).format(format);
 };
-app.locals.isAuthenticated = false;
 // Generate a snippet of the given text with the given length, rounded up to the
 // nearest word.
 app.locals.snippet = function(text, length) {
@@ -97,6 +98,9 @@ app.get('/logout', accountController.logout);
 app.get('/dash-seller', accountController.dashSeller);
 app.get('/dash-buyer', accountController.dashBuyer);
 app.get('/dash-agent', accountController.dashAgent);
+
+
+app.post('/account/update-profile', accountController.updateProfile);
 
 app.get('/blog', blogController.blog);
 app.get('/blog/search/tag/:tag', blogController.searchByTag);

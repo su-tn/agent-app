@@ -19,15 +19,12 @@
         <div class="row">
             <div class="dash-matches-body">
                 <div class="col-lg-3 panel-left">
-                    <h5 class="align-center">BUYER</h5>
+                    <h5 class="align-center">AGENT</h5>
                     <h4 class="align-center"><b>Dashboard</b></h4>
                     <br />
                     <ul class="" role="tablist">
                         <li class="active">
-                            <a href="#agent-search" role="tab" data-toggle="tab">Agent Search</a>
-                        </li>
-                        <li>
-                            <a href="#add-new-search" role="tab" data-toggle="tab">+ Add New Search</a>
+                            <a href="#agent-search" role="tab" data-toggle="tab">Matches</a>
                         </li>
                         <li>
                             <a href="#profile-question" role="tab" data-toggle="tab">Profile Questions</a>
@@ -43,16 +40,13 @@
                 
                 <div class="col-lg-9 panel-right tab-content">
                     <div class="tab-pane fade in active" id="agent-search">
-                        <% include ../_dashMatchesBuyer %>
-                    </div>
-                    <div class="tab-pane fade" id="add-new-search">
-                        add new search
+                        <% include ../_dashMatchesAgent %>
                     </div>
                     <div class="tab-pane fade" id="profile-question">
-                        profile-question
+                        <% include ../_dashProfileQuestionsAgent %>
                     </div>
                     <div class="tab-pane fade" id="edit-profile">
-                        edit-profile
+                        <% include ../_dashEditProfile %>
                     </div>
                     <div class="tab-pane fade" id="email-setting">
                         email-setting
