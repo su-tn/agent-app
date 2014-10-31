@@ -1,0 +1,120 @@
+<div class="col-lg-12">
+    <div class="col-md-8">
+        <h3 class="title">Build our your profile to improve your matches</h3>
+        <form rel="form" method="POST" id="dash_qs_form">
+            <% var language = user.get('language') || 'en' %>
+            <% var typeOfProperty = user.get('typeOfProperty') || 1 %>
+            <% var importantTargetArea = user.get('importantTargetArea') || 1 %>
+            <% var importantPriceRange = user.get('importantPriceRange') || 1 %>
+            <% var importantTypeOfProperty = user.get('importantTypeOfProperty') || 1 %>
+            <% var importantComplaint = user.get('importantComplaint') || 1 %>
+            
+            <div class="form-group">
+                <label>Is English your first language? If not please select 
+                    the language you prefer for transacting in real estate</label>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="language" value="en" <%= (language == 'en') ? 'checked' : '' %> > English is my first language
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="language" value="es" <%= (language == 'es') ? 'checked' : '' %>> Spanish</label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="language" value="fr" <%= (language == 'fr') ? 'checked' : '' %>> French</label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="language" value="cmn" <%= (language == 'cmn') ? 'checked' : '' %>> Mandarin</label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="language" value="ja" <%= (language == 'ja') ? 'checked' : '' %>> Japanese</label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="language" value="de" <%= (language == 'de') ? 'checked' : '' %>> German</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>What's the address of the property?</label>
+                <textarea class="form-control" rows="3" name="address_of_property"><%= user.get('addressOfProperty') || '' %></textarea>
+            </div>
+            <div class="form-group">
+                <label>What type of property are you selling?</label>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="type_of_property" value="1" <%= (typeOfProperty == '1') ? 'checked' : '' %>> Land
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="type_of_property" value="2" <%= (typeOfProperty == '2') ? 'checked' : '' %>> Residential</label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="type_of_property" value="3" <%= (typeOfProperty == '3') ? 'checked' : '' %>> Commercial</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>How important is it that your realtor has sold properties in your target area?</label>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="important_target_area" value="1" <%= (importantTargetArea == 1) ? 'checked' : '' %>> Important
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="important_target_area" value="0" <%= (importantTargetArea == 0) ? 'checked' : '' %>> Not important</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>How important is it that your realtor has sold properties in your price range?</label>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="important_price_range" value="1" <%= (importantPriceRange == 1) ? 'checked' : '' %>> Important
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="important_price_range" value="0" <%= (importantPriceRange == 0) ? 'checked' : '' %>> Not important</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>How important is it that your realtor has sold similar types of investment property?</label>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="important_type_of_property" value="1" <%= (importantTypeOfProperty == 1) ? 'checked' : '' %>> Important
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="important_type_of_property" value="0" <%= (importantTypeOfProperty == 0) ? 'checked' : '' %>> Not important</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>How important is it to you that your agent has not had any ethics 
+                    complaints filed against them with the ethic board?</label>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="important_complaint" value="1" <%= (importantComplaint == 1) ? 'checked' : '' %>> Important
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="important_complaint" value="0" <%= (importantComplaint == 0) ? 'checked' : '' %>> Not important</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Describe your property and any special requirements you may have in selecting an agent:</label>
+                <textarea class="form-control" name="special_requirement" rows="3"><%= user.get('specialRequirement') || '' %></textarea>
+            </div>
+            <div class="form-group align-center">
+                <a class="btn standard-nocolor-button" onclick="clearForm('#dash_qs_form')">Clear form</a>
+                <button type="button" onclick="updateProfileQuestion()" class="btn btn-default standard-button">Next</button>
+            </div>
+        </form>
+    </div>
+</div>

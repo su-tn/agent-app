@@ -145,12 +145,6 @@ var signupAgentVerify = function(){
         return;
     }
     
-    if(password.length < 6){
-        $('#password').addClass('error');
-        $('#password').next('.error').text('Password must be greater than or equal 6 characters').show();
-        return;
-    }
-    
     $.post('/signup-agent-verify',{agent_id: agentId, email: email, password: password}, function(res){
         if(res.error) {
             $('#email').addClass('error');
@@ -163,6 +157,7 @@ var signupAgentVerify = function(){
 }
 
 var updateProfile = function(){
+    $('.error').text('');
     $('.loading_content').show();
     var data = {
         firstName: $('#first-name').val(),
@@ -174,7 +169,18 @@ var updateProfile = function(){
     $.post('account/update-profile', data, function(res){
         console.log(res);
         $('.loading_content').hide();
-        if(res.error) $('.error').text(error);
+        if(res.error) $('.error').text(res.error);
+    })
+}
+
+var updateProfileQuestion = function(){
+    $('.error').text('');
+    $('.loading_content').show();
+    
+    $.post('account/update-profile-question', $('#dash_qs_form').serialize(), function(res){
+        console.log(res);
+        $('.loading_content').hide();
+        if(res.error) $('.error').text(res.error);
     })
 }
 

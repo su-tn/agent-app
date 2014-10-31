@@ -19,13 +19,21 @@
         <div class="row">
             <div class="dash-matches-body">
                 <div class="col-lg-3 panel-left">
-                    <h5 class="align-center">AGENT</h5>
+                    <% var userType = user.get('userType'); %>
+                    <h5 class="align-center"><%= (userType == 1) ? 'BUYER' : ((userType == 2) ? 'SELLER' : 'AGENT') %></h5>
                     <h4 class="align-center"><b>Dashboard</b></h4>
                     <br />
                     <ul class="" role="tablist">
                         <li class="active">
-                            <a href="#agent-search" role="tab" data-toggle="tab">Matches</a>
+                            <a href="#matches" role="tab" data-toggle="tab"><%= (userType == 1) ? 'Agent Search' : 'Matches' %></a>
                         </li>
+                        
+                        <% if(userType == 1 || userType == 2){ %>
+                            <li>
+                                <a href="#add-new-search" role="tab" data-toggle="tab">+ Add New Search</a>
+                            </li>
+                        <% } %>
+                        
                         <li>
                             <a href="#profile-question" role="tab" data-toggle="tab">Profile Questions</a>
                         </li>
@@ -39,14 +47,33 @@
                 </div>
                 
                 <div class="col-lg-9 panel-right tab-content">
-                    <div class="tab-pane fade in active" id="agent-search">
-                        <% include ../_dashMatchesAgent %>
+                    <div class="tab-pane fade in active" id="matches">
+                        <% if(userType == 1){ %>
+                            <% include /_matchesBuyer %>
+                        <% } else if(userType == 2){ %>
+                            <% include /_matchesSeller %>
+                        <% } else { %>
+                            <% include /_matchesAgent %>
+                        <% } %>
                     </div>
+                    
+                    <% if(userType == 1 || userType == 2){ %>
+                    <div class="tab-pane fade in active" id="add-new-search">
+                        add new search
+                    </div>
+                    <% } %>
+                    
                     <div class="tab-pane fade" id="profile-question">
-                        <% include ../_dashProfileQuestionsAgent %>
+                        <% if(userType == 1){ %>
+                            <% include /_profileQuestionsBuyer %>
+                        <% } else if(userType == 2){ %>
+                            <% include /_profileQuestionsSeller %>
+                        <% } else { %>
+                            <% include /_profileQuestionsAgent %>
+                        <% } %>
                     </div>
                     <div class="tab-pane fade" id="edit-profile">
-                        <% include ../_dashEditProfile %>
+                        <% include /_editProfile %>
                     </div>
                     <div class="tab-pane fade" id="email-setting">
                         email-setting

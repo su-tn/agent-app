@@ -91,16 +91,15 @@ app.get('/signup-agent', accountController.signupAgent);
 app.get('/signup-agent-verify', accountController.signupAgentVerify);
 app.post('/signup-agent-verify', accountController.signupAgentVerify);
 app.get('/signup-2-agent', accountController.signup2Agent);
+app.post('/signup-2-agent', accountController.signup2Agent);
 
 app.get('/login', accountController.login);
 app.post('/login', accountController.login);
 app.get('/logout', accountController.logout);
-app.get('/dash-seller', accountController.dashSeller);
-app.get('/dash-buyer', accountController.dashBuyer);
-app.get('/dash-agent', accountController.dashAgent);
-
+app.get('/dashboard', accountController.dashboard);
 
 app.post('/account/update-profile', accountController.updateProfile);
+app.post('/account/update-profile-question', accountController.updateProfileQuestion);
 
 app.get('/blog', blogController.blog);
 app.get('/blog/search/tag/:tag', blogController.searchByTag);
