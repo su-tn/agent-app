@@ -31,6 +31,7 @@
         <div class="col-lg-2">
             <div class="avatar">
                 <i class="fa fa-user"></i>
+                <a href="#review-agent" class="btn review-agent-button" data-toggle="modal" data-target="#review-agent">REVIEW</a>
             </div>
         </div>
         <div class="col-lg-3 description">
@@ -79,73 +80,35 @@
         <h3>Agents you've matched with:</h3>
     </div>
     
-    <div class="col-md-12 matches-item">
-        <div class="col-lg-2">
-            <div class="avatar">
-                <i class="fa fa-user"></i>
-            </div>
-        </div>
-        <div class="col-lg-3 description">
-            <div class="rate">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
-            </div>
-            <div class="full-name">Jessica Parker</div>
-            <div class="address">San Jose, CA</div>
-            <div class="exp">4 years experience</div>
-        </div>
-        <div class="col-lg-3">
-            <div class="progess">
-                <div style="width: 94%;">&nbsp; 94%</div>
-            </div>
-            <div>Shared Connections</div>
-            <div>
-                <div class="share-connection">
-                    <i class="fa fa-user"></i>
-                </div>
-                <div class="share-connection">
-                    <i class="fa fa-user"></i>
-                </div>
-                <div class="share-connection">
-                    <i class="fa fa-user"></i>
-                </div>
-                <div class="share-connection">
-                    <i class="fa fa-user"></i>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-2">
-            <a href="#" class="btn" disabled>Tap</a>
-        </div>
-        <div class="col-lg-2">
-            <a href="#" class="btn next-btn" disabled><i class="fa fa-angle-right"></i></a>
-        </div>
-    </div>
+    <% agents.forEach(function(agent){ %>
     
     <div class="col-md-12 matches-item">
         <div class="col-lg-2">
             <div class="avatar">
+                <% if(agent.image){ %>
+                <img src="<%= agent.iamge.url %>"/>
+                <% } else { %>
                 <i class="fa fa-user"></i>
+                <% } %>
             </div>
         </div>
         <div class="col-lg-3 description">
             <div class="rate">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
-                <i class="fa fa-star-o"></i>
+                <% var rate = agent.rate || 0 %>
+                <% for(var i=0; i<rate; i++) { %>
+                    <i class="fa fa-star"></i>
+                <% } %>
+                <% for(var j=rate; j<5; j++) { %>
+                    <i class="fa fa-star-o"></i>
+                <% } %>
             </div>
-            <div class="full-name">Rob Roy</div>
-            <div class="address">San Jose, CA</div>
-            <div class="exp">4 years experience</div>
+            <div class="full-name"><%= (agent.firstName || '') + ' ' + (agent.lastName || '') %></div>
+            <div class="address"><%= agent.address || '' %></div>
+            <div class="exp"><%= (agent.experience || 0) + ' years experience'%></div>
         </div>
         <div class="col-lg-3">
             <div class="progess">
-                <div style="width: 89%;">&nbsp; 89%</div>
+                <div style="width: <%= agent.matched%>%;"><%= ' ' + agent.matched + '%' %></div>
             </div>
             <div>Shared Connections</div>
             <div>
@@ -164,17 +127,22 @@
             </div>
         </div>
         <div class="col-lg-2">
+            <% if(!agent.tappedBy) { %>
+            <a href="#" class="btn tap">Tap</a>
+            <% } else if(agent.tappedBy == user.id){ %>
             <a href="#" class="btn tapped">Tapped</a>
+            <% } %>
         </div>
         <div class="col-lg-2">
             <a href="#" class="btn next-btn" disabled><i class="fa fa-angle-right"></i></a>
         </div>
     </div>
+    <% }) %>
 </div>
 
 
 <!-- Modal -->
-<div class="modal fade" id="view-proposal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade view-modal" id="view-proposal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
@@ -226,6 +194,49 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade view-modal" id="review-agent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="modal-heading">Review Doug Bend</h3>
+                <div class="modal-avatar">
+                    <img src="http://www.iconsdb.com/icons/preview/gray/manager-xxl.png" width="90">
+                    <div class="summary">
+                        Our of 5 stars, how would you rate your overall experience with Doug Bend?
+                        <div class="rate">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-o"></i>
+                            <i class="fa fa-star-o"></i>
+                        </div>
+                    </div>
+                </div>
+                <p class="description">
+                    Please provide additional comments on your experience with Doug Bend:
+                </p>
+                
+                <form action="" method="POST">
+                    <input type="hidden" name="agent_id" value=""/>
+                    <textarea class="form-control" name="comment" placeholder="Type comments here"></textarea>
+                    <br />
+                    <button type="submit" class="btn standard-button view-proposal-button">
+                        <i class="fa fa-download"></i>
+                        SUBMIT REVIEW
+                    </button>
+                </form>
             </div>
         </div>
       </div>

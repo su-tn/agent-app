@@ -13,8 +13,8 @@
 
                 <h3>Please use the form below to reach out to us with
                     questions or conserns, we will reply as soon as we can!</h3>
-
-                <form role="form" id="contact_form">
+                    
+                <form role="form" id="contact_form" method="POST">
                     <div class="form-group">
                         <label for="firstname">First Name:</label>
                         <input type="text" class="form-control" name="firstname" placeholder="" required="">
@@ -25,11 +25,13 @@
                     </div>
                     <div class="form-group">
                         <label for="message">Type Message Here:</label>
-                        <textarea type="text" class="form-control" rows="4" name="message" placeholder="" required=""></textarea>
+                        <textarea type="text" class="form-control" rows="4" id="message" name="message" placeholder="" required=""></textarea>
+                        <span class="error"></span>
                     </div>
                     <div class="form-group">
                         <label for="email">Email Address:</label>
-                        <input type="email" class="form-control" name="email" placeholder="" required="">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="" required="">
+                        <span class="error"></span>
                     </div>
                     <div class="form-group align-center">
                         <a class="btn standard-nocolor-button" onclick="clearForm('#contact_form')">Clear form</a>

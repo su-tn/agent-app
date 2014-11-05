@@ -184,6 +184,39 @@ var updateProfileQuestion = function(){
     })
 }
 
+var showMessage = function(){
+    $('#message-modal').modal('show');
+}
+
+$('#contact_form').submit(function(){
+    $('form input').removeClass('error');
+    $('.error').hide();
+    
+    var email = $('#email').val();
+    var message = $('#message').val();
+    
+    if (!message) {
+        $('#message').addClass('error');
+        $('#message').next('.error').text('Message is required').show();
+        return;
+    }
+    
+    if (!email) {
+        $('#email').addClass('error');
+        $('#email').next('.error').text('Email is required').show();
+        return;
+    }
+    
+    if(!validateEmail(email)){
+        $('#email').addClass('error');
+        $('#email').next('.error').text('Email is not valid').show();
+        return;
+    }
+    
+    this.submit();
+})
+
 $(function(){
+    
     $('.show-tooltip').tooltip();
 })

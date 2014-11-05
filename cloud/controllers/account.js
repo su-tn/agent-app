@@ -1,4 +1,5 @@
 var _ = require('underscore');
+var User = Parse.Object.extend('User');
 
 exports.login = function(req, res) {
 	var username = req.body.email;
@@ -120,7 +121,7 @@ exports.signup2 = function(req, res) {
             //price_range: 1 - <$100,000 ... 6 - over $5,000,000
             
             user.set('userType', req.body.user_type);
-            user.set('sellOrBuyTime', req.body.sell_time);
+            user.set('timeframe', req.body.timeframe);
             user.set('priceRange', req.body.price_range);
             user.save().then(function(){
                 res.redirect('/dashboard');
@@ -152,6 +153,7 @@ exports.signupAgentVerify = function(req, res) {
 		user.set("email", username);
 		user.set("agentId", agent_id);
 		user.set("userType", '3'); //agent
+        user.set('timeframe', []);
         
 		user.signUp(null, {
 			success: function(user) {
@@ -187,8 +189,9 @@ exports.signup2Agent = function(req, res) {
             //kind_of_client: 1(byer), 2(seller), 3(both)
             //price_range_client: 1(500-750), 2(750 - 1mili), 3(over 1mili), 4(all)
             
-            user.set('kindOfClient', req.body.kind_of_client);
-            user.set('priceRange', req.body.price_range_client);
+            user.set('kindOfClient', parseInt(req.body.kind_of_client));
+            user.set('timeframeClient', req.body.timeframe);
+            user.set('priceRangeClient', req.body.price_range);
             user.save().then(function(){
                 res.redirect('/dashboard');
             }, function(error){
@@ -204,7 +207,42 @@ exports.signup2Agent = function(req, res) {
 
 exports.dashboard = function(req, res) {
     if(res.locals.isAuthenticated) {
-        res.render('dashboard/index');
+        var currentUser = res.locals.user;
+        var timeframe = currentUser.get('timeframe');
+        var priceRange = currentUser.get('priceRange');
+        var loan = currentUser.get('loan');
+        var importantComplaint = currentUser.get('importantComplaint');
+        var firstTimeUser = currentUser.get('firstTimeUser');
+        var licenceAgent = currentUser.get('licenceAgent');
+        var minDealClosedAgent = currentUser.get('minDealClosedAgent');
+        
+        var queryUser = new Parse.Query(User);
+        
+        queryUser.equalTo('userType', '3');
+        queryUser.find().then(function(agents){
+            console.log(agents);
+            var users = [];
+            for(var i=0; i<agents.length; i++){
+                var agent = agents[i];
+                var user = agent.toJSON();
+                var points = 0;
+                
+                if(agent.get('timeframeClient') && agent.get('timeframeClient').indexOf(timeframe) != -1) points += 20;
+                if(agent.get('priceRangeClient') && agent.get('priceRangeClient').indexOf(priceRange) != -1) points += 20;
+                if(agent.get('loan') == loan) points += 10;
+                if(agent.get('importantComplaint') == importantComplaint) points += 10;
+                if(agent.get('firstTimeUser') == firstTimeUser) points += 10;
+                if(licenceAgent && agent.get('licenceTime') && licenceAgent.indexOf(agent.get('licenceTime')) != -1) points += 10;
+                if(minDealClosedAgent && agent.get('minDealClosed') && minDealClosedAgent.indexOf(agent.get('minDealClosed')) != -1) points += 10;
+                
+                user.matched = points;
+                users.push(user);
+            }
+            
+            console.log(users);
+        
+            res.render('dashboard/index', {agents: users});
+        });
     } else {
         res.redirect('/login?redirectUrl=dashboard');
     }
@@ -234,37 +272,32 @@ exports.updateProfileQuestion = function(req, res) {
         var user = res.locals.user;
         var userType = user.get('userType');
         
+        if(req.body.language) user.set('language', req.body.language);
+        if(req.body.important_complaint) user.set('importantComplaint', req.body.important_complaint);
+        if(req.body.first_time_user) user.set('firstTimeUser', req.body.first_time_user);
+        
         //buyer and seller
         if(userType == 1 || userType == 2) {
-            if(req.body.language) user.set('language', req.body.language);
-            if(req.body.type_of_property) user.set('typeOfProperty', req.body.type_of_property);
-            if(req.body.region_looking) user.set('regionLooking', req.body.region_looking);
-            if(req.body.features_required) user.set('featuresRequired', req.body.features_required);
             if(req.body.important_target_area) user.set('importantTargetArea', req.body.important_target_area);
             if(req.body.important_price_range) user.set('importantPriceRange', req.body.important_price_range);
-            if(req.body.important_type_of_property) user.set('importantTypeOfProperty', req.body.important_type_of_property);
-            if(req.body.important_complaint) user.set('importantComplaint', req.body.important_complaint);
-            if(req.body.special_requirement) user.set('specialRequirement', req.body.special_requirement);
+            if(req.body.features_required) user.set('featuresRequired', req.body.features_required);
+            if(req.body.accomplish) user.set('accomplish', req.body.accomplish);
+            if(req.body.licence_agent) user.set('licenceAgent', req.body.licence_agent);
+            if(req.body.min_deal_closed) user.set('minDealClosedAgent', req.body.min_deal_closed);
         }
         
         //buyer
         if(userType == 1) {
-            if(req.body.region_looking) user.set('regionLooking', req.body.region_looking);
-            if(req.body.features_required) user.set('featuresRequired', req.body.features_required);
-        }
-        
-        //seller
-        if(userType == 1 && req.body.address_of_property) {
-            user.set('addressOfProperty', req.body.address_of_property);
+            if(req.body.loan) user.set('loan', req.body.loan);
+            if(req.body.buying_property) user.set('buyingProperty', req.body.buying_property);
         }
         
         //agent
         if(userType == 3) {
-            if(req.body.time_have_agent) user.set('timeHaveAgent', req.body.time_have_agent);
-            if(req.body.time_close_deal) user.set('timeCloseDeal', req.body.time_close_deal);
-            if(req.body.have_ethic_complaint) user.set('haveEthicComplaint', req.body.have_ethic_complaint);
-            if(req.body.describe_complaint) user.set('describeComplaint', req.body.describe_complaint);
-            if(req.body.describe_approach) user.set('describeApproach', req.body.describe_approach);
+            if(req.body.loan) user.set('loan', req.body.loan);
+            if(req.body.price_range) user.set('priceRangeClient', req.body.price_range);
+            if(req.body.licence_time) user.set('licenceTime', req.body.licence_time);
+            if(req.body.min_deal_closed) user.set('minDealClosed', req.body.min_deal_closed);
         }
         
         user.save().then(function(user){

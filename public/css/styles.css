@@ -21,7 +21,6 @@ body {
     margin: auto !important;
 }
 
-
 /* Internet Explorer 10 in Windows 8 and Windows Phone 8 Bug fix */
 
 @-webkit-viewport {
@@ -347,18 +346,19 @@ form label{
 }
 
 .intro-section .intro {
-    color: #353434;
-    padding: 20px 30px;
+    color: #ffffff;
     font-size: 42px;
     line-height: 55px;
-    background-color: #EDEEEE;
-    opacity: 0.7;
     width: 100%;
-    position: absolute;
-    top: 0;
-    margin: 0;
-    left: 0;
-    text-align: justify;
+    font-weight: bold;
+    clear: both;
+}
+
+.intro-section .intro2 {
+    color: #ffffff;
+    font-size: 28px;
+    line-height: 55px;
+    text-transform: uppercase;
 }
 
 .intro-section .buttons {
@@ -366,13 +366,6 @@ form label{
 }
 
 .started-btn{
-    position: absolute;
-    left: 50%;
-    border: 1px solid white;
-    bottom: 65px;
-    margin-left: -130px;
-    padding: 19px 83px;
-    background: transparent;
 }
 
 .sign-up-agent-button{
@@ -796,7 +789,10 @@ form label{
     color: #CCCCCC;
     border-radius: 40px;
     text-align: center;
-    line-height: 70px;
+}
+
+.dash-matches-body .matches-item .avatar i{
+    line-height: 75px;
 }
 
 .dash-matches-body .matches-item .share-connection{
@@ -818,8 +814,8 @@ form label{
     border: 1px solid #40C353;
     border-radius: 5px;
     color: white;
-    font-size: 40px;
-    line-height: 45px;
+    font-size: 35px;
+    line-height: 50px;
 }
 
 .dash-matches-body .matches-item .progess > div{
@@ -827,6 +823,7 @@ form label{
     border-bottom-left-radius: 4px;
     background-color: #40C353;
     height: 100%;
+    padding-left: 10px;
 }
 
 .dash-matches-body .matches-item .btn{
@@ -836,6 +833,10 @@ form label{
     color: white;
     line-height: 35px;
     text-align: center;
+}
+
+.dash-matches-body .matches-item .btn.tap {
+    background-color: #4099FF;
 }
 
 .dash-matches-body .matches-item .btn.tapped{
@@ -852,52 +853,59 @@ form label{
     line-height: 16px;
 }
 
+.dash-matches-body .matches-item .review-agent-button{
+    background-color: #1E7BC7;
+    height: auto;
+    line-height: normal;
+    padding: 0 10px;
+}
+
 
 /*---------------------------------------
    SECTION:  MODAL - view-proposal                
 -----------------------------------------*/
 
-#view-proposal .modal-body > .row{
+.view-modal .modal-body > .row{
     padding-left: 30px;
     padding-right: 35px;
 }
 
-#view-proposal .modal-heading{
+.view-modal .modal-heading{
     font-weight: bold;
 }
 
-#view-proposal .modal-avatar{
+.view-modal .modal-avatar{
     margin: 25px 0 35px 0;
     font-style: italic;
 }
 
-#view-proposal .modal-avatar img,
-#view-proposal .modal-avatar div{
+.view-modal .modal-avatar img,
+.view-modal .modal-avatar div{
     display: inline-block;
 }
 
-#view-proposal .view-proposal-button{
+.view-modal .view-modal-button{
     margin-bottom: 60px;
 }
 
-#view-proposal .footer-buttons .btn{
+.view-modal .footer-buttons .btn{
     min-width: 100%;
     padding: 12px 0;
 }
 
-#view-proposal .footer-buttons .pass-button{
+.view-modal .footer-buttons .pass-button{
     background-color: #71C8C9;
 }
 
-#view-proposal .footer-buttons .chat-button{
+.view-modal .footer-buttons .chat-button{
     background-color: #A83333;
 }
 
-#view-proposal .footer-buttons .select-button{
+.view-modal .footer-buttons .select-button{
     background-color: #69DB35;
 }
 
-#view-proposal .footer-buttons .btn:hover{
+.view-modal .footer-buttons .btn:hover{
     border: none;
     background-color: #ebebeb;
 }

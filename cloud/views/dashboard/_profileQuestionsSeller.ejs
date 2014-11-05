@@ -3,15 +3,17 @@
         <h3 class="title">Build our your profile to improve your matches</h3>
         <form rel="form" method="POST" id="dash_qs_form">
             <% var language = user.get('language') || 'en' %>
-            <% var typeOfProperty = user.get('typeOfProperty') || 1 %>
             <% var importantTargetArea = user.get('importantTargetArea') || 1 %>
             <% var importantPriceRange = user.get('importantPriceRange') || 1 %>
-            <% var importantTypeOfProperty = user.get('importantTypeOfProperty') || 1 %>
             <% var importantComplaint = user.get('importantComplaint') || 1 %>
+            <% var featuresRequired = user.get('featuresRequired') || [] %>
+            <% var firstTimeUser = user.get('firstTimeUser') || 1 %>
+            <% var licenceAgent = user.get('licenceAgent') || 1 %>
+            <% var minDealClosed = user.get('minDealClosedAgent') || 1 %>
             
             <div class="form-group">
-                <label>Is English your first language? If not please select 
-                    the language you prefer for transacting in real estate</label>
+                <label>Is english your second language?  If yes, what language(s) 
+                    do you require to discuss transacting in real estate?</label>
                 <div class="radio">
                     <label>
                         <input type="radio" name="language" value="en" <%= (language == 'en') ? 'checked' : '' %> > English is my first language
@@ -37,79 +39,183 @@
                     <label>
                         <input type="radio" name="language" value="de" <%= (language == 'de') ? 'checked' : '' %>> German</label>
                 </div>
-            </div>
-            <div class="form-group">
-                <label>What's the address of the property?</label>
-                <textarea class="form-control" rows="3" name="address_of_property"><%= user.get('addressOfProperty') || '' %></textarea>
-            </div>
-            <div class="form-group">
-                <label>What type of property are you selling?</label>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="type_of_property" value="1" <%= (typeOfProperty == '1') ? 'checked' : '' %>> Land
+                        <input type="radio" name="language" value="other" <%= (language == 'other') ? 'checked' : '' %>> Other</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>How important is it that your realtor has sold properties in your area?</label>
+                    
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="important_target_area" value="1" <%= (importantTargetArea == 1) ? 'checked' : '' %>> 
+                        Not relevant
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="type_of_property" value="2" <%= (typeOfProperty == '2') ? 'checked' : '' %>> Residential</label>
+                        <input type="radio" name="important_target_area" value="2" <%= (importantTargetArea == 2) ? 'checked' : '' %>> 
+                        Somewhat relevant</label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="type_of_property" value="3" <%= (typeOfProperty == '3') ? 'checked' : '' %>> Commercial</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>How important is it that your realtor has sold properties in your target area?</label>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="important_target_area" value="1" <%= (importantTargetArea == 1) ? 'checked' : '' %>> Important
+                        <input type="radio" name="important_target_area" value="31" <%= (importantTargetArea == 3) ? 'checked' : '' %>> 
+                        Very relevant
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="important_target_area" value="0" <%= (importantTargetArea == 0) ? 'checked' : '' %>> Not important</label>
+                        <input type="radio" name="important_target_area" value="4" <%= (importantTargetArea == 4) ? 'checked' : '' %>> 
+                        Deal breaker</label>
                 </div>
             </div>
             <div class="form-group">
                 <label>How important is it that your realtor has sold properties in your price range?</label>
+                
                 <div class="radio">
                     <label>
-                        <input type="radio" name="important_price_range" value="1" <%= (importantPriceRange == 1) ? 'checked' : '' %>> Important
+                        <input type="radio" name="important_price_range" value="1" <%= (importantPriceRange == 1) ? 'checked' : '' %>> 
+                        Not relevant
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="important_price_range" value="0" <%= (importantPriceRange == 0) ? 'checked' : '' %>> Not important</label>
+                        <input type="radio" name="important_price_range" value="0" <%= (importantPriceRange == 0) ? 'checked' : '' %>> 
+                        Somewhat relevant</label>
                 </div>
-            </div>
-            <div class="form-group">
-                <label>How important is it that your realtor has sold similar types of investment property?</label>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="important_type_of_property" value="1" <%= (importantTypeOfProperty == 1) ? 'checked' : '' %>> Important
+                        <input type="radio" name="important_price_range" value="0" <%= (importantPriceRange == 0) ? 'checked' : '' %>> 
+                        Very relevant</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>How important is it to you that your agent has not had 
+                    any ethics complaints filed against them with a real estate ethics board?</label>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="important_complaint" value="1" <%= (importantComplaint == 1) ? 'checked' : '' %>> 
+                        Not relevant
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="important_type_of_property" value="0" <%= (importantTypeOfProperty == 0) ? 'checked' : '' %>> Not important</label>
+                        <input type="radio" name="important_complaint" value="2" <%= (importantComplaint == 2) ? 'checked' : '' %>> 
+                        Somewhat relevant</label>
                 </div>
-            </div>
-            <div class="form-group">
-                <label>How important is it to you that your agent has not had any ethics 
-                    complaints filed against them with the ethic board?</label>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="important_complaint" value="1" <%= (importantComplaint == 1) ? 'checked' : '' %>> Important
+                        <input type="radio" name="important_complaint" value="3" <%= (importantComplaint == 3) ? 'checked' : '' %>> 
+                        Very relevant
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="important_complaint" value="0" <%= (importantComplaint == 0) ? 'checked' : '' %>> Not important</label>
+                        <input type="radio" name="important_complaint" value="4" <%= (importantComplaint == 4) ? 'checked' : '' %>> 
+                        Deal breaker</label>
                 </div>
             </div>
+            
             <div class="form-group">
-                <label>Describe your property and any special requirements you may have in selecting an agent:</label>
-                <textarea class="form-control" name="special_requirement" rows="3"><%= user.get('specialRequirement') || '' %></textarea>
+                <label>What are your goals for selling this property?</label>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="features_required" value="1" <%= (featuresRequired.indexOf('1') != -1) ? 'checked' : '' %>> 
+                        I am moving to a different part of the country
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="features_required" value="2" <%= (featuresRequired.indexOf('2') != -1) ? 'checked' : '' %>> 
+                        I want to realize the appreciation of property value
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="features_required" value="3" <%= (featuresRequired.indexOf('3') != -1) ? 'checked' : '' %>> 
+                        Downsizing from my current home
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="features_required" value="4" <%= (featuresRequired.indexOf('4') != -1) ? 'checked' : '' %>> 
+                        Lifestyle
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="features_required" value="5" <%= (featuresRequired.indexOf('5') != -1) ? 'checked' : '' %>> 
+                        Other - fill in the blank
+                    </label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>What do you want to accomplish with this move?</label>
+                <input type="text" class="form-control" name="accomplish" value="<%= user.get('accomplish') || '' %>" />
+            </div>
+            
+            <div class="form-group">
+                <label>Are your a first-time seller?</label>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="first_time_user" value="1" <%= (firstTimeUser == 1) ? 'checked' : '' %>> 
+                        Yes
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="first_time_user" value="0" <%= (firstTimeUser == 0) ? 'checked' : '' %>> 
+                        No</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Would you be willing to work with an agent who has been licensed for:</label>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="licence_agent" value="1" <%= (licenceAgent == 1) ? 'checked' : '' %>> 
+                        less than two years
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="licence_agent" value="2" <%= (licenceAgent == 2) ? 'checked' : '' %>> 
+                        2-5 years</label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="licence_agent" value="3" <%= (licenceAgent == 3) ? 'checked' : '' %>> 
+                        5 or more years</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Would you be willing to work with an agent who has closed a minimum of:</label>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="min_deal_closed" value="1" <%= (minDealClosed == 1) ? 'checked' : '' %>> 
+                        0 to 5 deals in the last year
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="min_deal_closed" value="2" <%= (minDealClosed == 2) ? 'checked' : '' %>> 
+                        5 - 10 deals in the last year</label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="min_deal_closed" value="3" <%= (minDealClosed == 3) ? 'checked' : '' %>> 
+                        10 - 20 deals in the last year</label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="min_deal_closed" value="4" <%= (minDealClosed == 4) ? 'checked' : '' %>> 
+                        20 or more deals in the last year</label>
+                </div>
             </div>
             <div class="form-group align-center">
                 <a class="btn standard-nocolor-button" onclick="clearForm('#dash_qs_form')">Clear form</a>

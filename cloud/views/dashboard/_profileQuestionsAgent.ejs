@@ -2,62 +2,184 @@
     <div class="col-md-8">
         <h3 class="title">Build our your profile to improve your matches</h3>
         <form rel="form" method="POST" id="dash_qs_form">
-            <% var timeHaveAgent = user.get('timeHaveAgent') || 5 %>
-            <% var timeCloseDeal = user.get('timeCloseDeal') || 5 %>
-            <% var haveEthicComplaint = user.get('haveEthicComplaint') || 0 %>
+            <% var language = user.get('language') || 'en' %>
+            <% var loan = user.get('loan') || 1 %>
+            <% var priceRangeClient = user.get('priceRangeClient') || [] %>
+            <% var firstTimeUser = user.get('firstTimeUser') || 1 %>
+            <% var licenceTime = user.get('licenceTime') || 1 %>
+            <% var minDealClosed = user.get('minDealClosed') || 1 %>
+            <% var importantComplaint = user.get('importantComplaint') || 1 %>
             
             <div class="form-group">
-                <label>How long have you been a real estate agent?</label>
+                <label>What languages do you speak well enough to transact in real estate?</label>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="time_have_agent" value="5" <%= (timeHaveAgent == 5) ? 'checked' : '' %>> 5 years or less
+                        <input type="radio" name="language" value="en" <%= (language == 'en') ? 'checked' : '' %> > English is my first language
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="time_have_agent" value="10" <%= (timeHaveAgent == 10) ? 'checked' : '' %>> 5 - 10 years</label>
+                        <input type="radio" name="language" value="es" <%= (language == 'es') ? 'checked' : '' %>> Spanish</label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="time_have_agent" value="20" <%= (timeHaveAgent == 20) ? 'checked' : '' %>> 10 - 20 years</label>
+                        <input type="radio" name="language" value="fr" <%= (language == 'fr') ? 'checked' : '' %>> French</label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="language" value="cmn" <%= (language == 'cmn') ? 'checked' : '' %>> Mandarin</label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="language" value="ja" <%= (language == 'ja') ? 'checked' : '' %>> Japanese</label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="language" value="de" <%= (language == 'de') ? 'checked' : '' %>> German</label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="language" value="other" <%= (language == 'other') ? 'checked' : '' %>> Other</label>
                 </div>
             </div>
+            
             <div class="form-group">
-                <label>How many deals have you closed in the previous 12 months?</label>
+                <label>Are you willing to work with a buyer who has not been pre-approved?</label>
+                    
                 <div class="radio">
                     <label>
-                        <input type="radio" name="time_close_deal" value="5" <%= (timeCloseDeal == 5) ? 'checked' : '' %>> 1 - 5
+                        <input type="radio" name="loan" value="1" <%= (loan == 1) ? 'checked' : '' %>> 
+                        Yes
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="time_close_deal" value="10" <%= (timeCloseDeal == 10) ? 'checked' : '' %>> 5 - 10</label>
-                </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="time_close_deal" value="20" <%= (timeCloseDeal == 20) ? 'checked' : '' %>> 10 or more</label>
+                        <input type="radio" name="loan" value="0" <%= (loan == 0) ? 'checked' : '' %>> 
+                        No</label>
                 </div>
             </div>
+            
+            <div class="form-group">
+                <label>Number of properties sold in that area code (zillow)</label>
+                <input type="text" name="" class="form-control" />
+            </div>
+            
+            <div class="form-group">
+                <label>What price ranges have you bought / sold (zillow)?</label>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="price_range" value="1" <%= (priceRangeClient.indexOf('1') != -1) ? 'checked' : '' %>>
+                        less than $500,000
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="price_range" value="2" <%= (priceRangeClient.indexOf('2') != -1) ? 'checked' : '' %>>
+                        $500,000 to $750,000
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="price_range" value="3" <%= (priceRangeClient.indexOf('3') != -1) ? 'checked' : '' %>>
+                        $750,000 to $1,000,000
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="price_range" value="4" <%= (priceRangeClient.indexOf('4') != -1) ? 'checked' : '' %>>
+                        $1,000,000 to $5,000,000
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="price_range" value="5" <%= (priceRangeClient.indexOf('5') != -1) ? 'checked' : '' %>>
+                        over $5,000,000
+                    </label>
+                </div>
+            </div>
+            
             <div class="form-group">
                 <label>Have any ethics complaints been filed against you with the ethics board?</label>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="have_ethic_complaint" value="1" <%= (haveEthicComplaint == 1) ? 'checked' : '' %>> Yes
+                        <input type="radio" name="important_complaint" value="4" <%= (importantComplaint == 4) ? 'checked' : '' %>> 
+                        0 complaints
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="have_ethic_complaint" value="0" <%= (haveEthicComplaint == 0) ? 'checked' : '' %>> No</label>
+                        <input type="radio" name="important_complaint" value="3" <%= (importantComplaint == 3) ? 'checked' : '' %>> 
+                        1 complaint</label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="important_complaint" value="2" <%= (importantComplaint == 2) ? 'checked' : '' %>> 
+                        2 to 5 complaints</label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="important_complaint" value="1" <%= (importantComplaint == 1) ? 'checked' : '' %>> 
+                        More than 5 complaints</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Are you willing to work with First time Home buyers/ investors?</label>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="first_time_user" value="1" <%= (firstTimeUser == 1) ? 'checked' : '' %>> 
+                        Yes
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="first_time_user" value="0" <%= (firstTimeUser == 0) ? 'checked' : '' %>> 
+                        No</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>How many years have you been a real estate agent?</label>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="licence_time" value="1" <%= (licenceTime == 1) ? 'checked' : '' %>> 
+                        less than two years
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="licence_time" value="2" <%= (licenceTime == 2) ? 'checked' : '' %>> 
+                        2-5 years</label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="licence_time" value="3" <%= (licenceTime == 3) ? 'checked' : '' %>> 
+                        5 or more years</label>
                 </div>
             </div>
             <div class="form-group">
-                <textarea class="form-control" rows="3" name="describe_complaint"
-                    placeholder="Please describe the nature of the complaint and you resolved it"><%= user.get('describeComplaint') || '' %></textarea>
-            </div>
-            <div class="form-group">
-                <label>Describe your approach to real estate business (be sure to mention 
-                specialties such as selling, staging, buying, etc.)</label>
-                <textarea class="form-control" rows="3" name="describe_approach"><%= user.get('describeApproach') || '' %></textarea>
+                <label>How many deals have you closed in the previous year?</label>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="min_deal_closed" value="1" <%= (minDealClosed == 1) ? 'checked' : '' %>> 
+                        0 to 5 deals in the last year
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="min_deal_closed" value="2" <%= (minDealClosed == 2) ? 'checked' : '' %>> 
+                        5 - 10 deals in the last year</label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="min_deal_closed" value="3" <%= (minDealClosed == 3) ? 'checked' : '' %>> 
+                        10 - 20 deals in the last year</label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="min_deal_closed" value="4" <%= (minDealClosed == 4) ? 'checked' : '' %>> 
+                        20 or more deals in the last year</label>
+                </div>
             </div>
             <div class="form-group align-center">
                 <a class="btn standard-nocolor-button" onclick="clearForm('#dash_qs_form')">Clear form</a>

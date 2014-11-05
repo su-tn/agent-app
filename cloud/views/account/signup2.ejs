@@ -19,6 +19,7 @@
                     <h3>Just a little more information to help you find the perfect agent:</h3>
                 </div>
                 <div class="col-lg-12">
+                    <div class="error"><%= (typeof error != 'undefined') ? error : ''%></div>
                     <form rel="form" method="POST" id="signup_2_form">
                         <div class="form-group">
                             <label>Are you a buyer or a seller?</label>
@@ -34,67 +35,62 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>How quickly would you like to <%= (user.get('userType') == 1) ? 'buy' : 'sell' %> your property?</label>
+                            <label><%= (user.get('userType') == 1) ? 'How soon are you looking to buy?' : 'How soon would you like to sell your property?' %></label>
+                            
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="sell_time" value="1" checked="">
-                                    ASAP
+                                    <input type="radio" name="timeframe" value="1" checked="">
+                                    ready to make offers
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="sell_time" value="2">
-                                    1 year or less
+                                    <input type="radio" name="timeframe" value="2">
+                                    3-6 months
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="sell_time" value="3">
-                                    1 - 2 year
+                                    <input type="radio" name="timeframe" value="3">
+                                    6-12 months
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="sell_time" value="4">
-                                    2 - 5 year
+                                    <input type="radio" name="timeframe" value="4">
+                                    over 12 months
                                 </label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label><%= (user.get('userType') == 1) ? 'What is your asking price?' : 'What is your price range?' %></label>
+                            <label><%= (user.get('userType') == 1) ? 'What price range of properties are you interested in?' : 'What is your asking price?' %></label>
                             <div class="radio">
                                 <label>
                                     <input type="radio" name="price_range" value="1" checked="">
-                                    $100,000 or less
+                                    less than $500,000
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
                                     <input type="radio" name="price_range" value="2">
-                                    $100,000 - $250,000
+                                    $500,000 to $750,000
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
                                     <input type="radio" name="price_range" value="3">
-                                    $250,000 - $500,000
+                                    $750,000 to $1,000,000
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
                                     <input type="radio" name="price_range" value="4">
-                                    $500,000 - $1,000,000
+                                    $1,000,000 to $5,000,000
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
                                     <input type="radio" name="price_range" value="5">
-                                    $1,000,000 - $5,000,000
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="price_range" value="6">
                                     over $5,000,000
                                 </label>
                             </div>
