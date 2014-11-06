@@ -4,7 +4,10 @@ RESPONSIVE FIXES
 =========================================
 -----------------------------------------*/
  
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
+    .home-container .container{
+        width: 900px;
+    }
 }
 
  @media (max-width: 991px) {
@@ -17,6 +20,11 @@ RESPONSIVE FIXES
     
     .navbar-nav>li>a {
         padding: 15px 10px;
+    }
+    
+
+    .home-container footer .container{
+        width: 964px;
     }
 }
 
@@ -61,9 +69,110 @@ RESPONSIVE FIXES
         font-size: 80%;
     }
 
-    body {
-        font-size: 15px;
-        line-height: 26px;
+    h1 {
+        font-size: 36px;
+    }
+    
+    h2 {
+        font-size: 18px;
+    }
+    
+    h3 {
+        font-size: 16px;
+    }
+    
+    h4 {
+        font-size: 14px;
+    }
+    
+    h5 {
+        font-size: 12px;
+    }
+    
+    .home-container .container{
+        width: 750px;
+    }
+
+    .home-container .sticky-navigation{
+        display: block;
+        padding: 0 !important;
+        min-height: 60px;
+        position: fixed;
+        top: 0;
+    }
+
+    .home-container .sticky-navigation .navbar-brand{
+        color: #f98e40;
+        font-size: 25px;
+        line-height: 28px;
+    }
+
+    .home-container .sticky-navigation .navbar-toggle{
+        margin: 0;
+        padding: 23px;
+        background-color: #33a3dc;
+        border: none;
+        color: white;
+        border-radius: 0;
+        font-size: 20px;
+    }
+    
+    #header-homepage{
+        margin-top: 60px;
+    }
+    
+    #header-homepage .header{
+        text-align: center;
+        padding-top: 100px;
+    }
+    
+    #header-homepage .header .logo,
+    #header-homepage .header .signin-button{
+        display: none;
+    }
+    
+    .intro-section .description{
+        width: 100%;
+    }
+    
+    .home-nav .item{
+        width: 180px;
+    }
+    
+    .home-nav .item:nth-child(2){
+        width: 110px;
+        border-left: none;
+        border-right: none;
+    }
+    
+    #how-it-work-buyer-seller .block-container > div {
+        float: none;
+        margin: 0 auto;
+        font-size: 24px;
+        margin-bottom: 30px;
+        width: 48%;
+    }
+    
+    #example-agent-seeker .main-contain > div,
+    #example-agent-dash .main-contain > div{
+        float: none;
+        margin: 0 auto;
+        font-size: 24px;
+        margin-bottom: 30px;
+        width: auto;
+    }
+    
+    #how-it-work-agent .item {
+        width: 450px;
+    }
+    
+    footer > div {
+        padding-top: 35px;
+        padding-bottom: 10px;
+    }
+    
+    footer .footer-nav{
+        display: none;
     }
 
     header .color-overlay {
@@ -80,14 +189,6 @@ RESPONSIVE FIXES
         display: inline-block;
         margin-bottom: 0;
     }
-
-    .intro-section {
-        padding-top: 9%;
-    }
-
-    .features .feature {
-        margin-bottom: 70px;
-    }
 }
 
 @media (max-width: 480px) {
@@ -96,21 +197,37 @@ RESPONSIVE FIXES
     html {
         font-size: 65%;
     }
-
-    .intro-section {
-        padding-top: 2%;
+    
+    .home-container .container{
+        width: 100%;
     }
-
-    .intro-section .intro {
-        margin-bottom: 16px;
+    #header-homepage .header {
+        padding-top: 50px;
     }
-
-    .intro-section h5 {
-        color: #ffffff;
+    
+    .intro-section .intro{
+        font-size: 40px;
+        font-weight: 600;
+        line-height: 50px;
     }
-
-    .intro-section .buttons {
-        margin-top: 15px;
+    
+    .intro-section .intro2{
+        font-size: 30px;
+        line-height: 50px;
+    }
+    
+    #how-it-work-buyer-seller .block-container > div {
+        width: 70%;
+    }
+    
+    #example-agent-seeker .block, #example-agent-dash .block,
+    #example-agent-seeker .main-contain > div, 
+    #example-agent-dash .main-contain > div {
+        padding: 0;
+    }
+    
+    .home-nav .item:nth-child(2){
+        width: 95px;
     }
 
     .standard-button {
@@ -128,6 +245,32 @@ RESPONSIVE FIXES
     #blogs h3{
         font-size: 22px;
         line-height: 32px;
+    }
+    
+    #header-homepage .header {
+        padding-top: 20px;
+    }
+    
+    .intro-section .intro {
+        font-size: 25px;
+        font-weight: normal;
+        line-height: 26px;
+    }
+    
+    .intro-section .intro2 {
+        font-size: 18px;
+        line-height: 30px;
+    }
+    
+    .home-nav .item {
+        width: 115px;
+        height: 70px;
+        line-height: 70px;
+        font-size: 14px;
+    }
+    
+    .home-nav .item:nth-child(2) {
+        width: 60px;
     }
 }
 

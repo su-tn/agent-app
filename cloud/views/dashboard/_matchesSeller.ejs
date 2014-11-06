@@ -26,6 +26,66 @@
         <h3>Agents you've matched with:</h3>
     </div>
     
+    
+    <% agents.forEach(function(agent){ %>
+    
+    <div class="col-md-12 matches-item">
+        <div class="col-lg-2">
+            <div class="avatar">
+                <% if(agent.image){ %>
+                <img src="<%= agent.iamge.url %>"/>
+                <% } else { %>
+                <i class="fa fa-user"></i>
+                <% } %>
+            </div>
+        </div>
+        <div class="col-lg-3 description">
+            <div class="rate">
+                <% var rate = agent.rate || 0 %>
+                <% for(var i=0; i<rate; i++) { %>
+                    <i class="fa fa-star"></i>
+                <% } %>
+                <% for(var j=rate; j<5; j++) { %>
+                    <i class="fa fa-star-o"></i>
+                <% } %>
+            </div>
+            <div class="full-name"><%= (agent.firstName || '') + ' ' + (agent.lastName || '') %></div>
+            <div class="address"><%= agent.address || '' %></div>
+            <div class="exp"><%= (agent.experience || 0) + ' years experience'%></div>
+        </div>
+        <div class="col-lg-3">
+            <div class="progess">
+                <div style="width: <%= agent.matched%>%;"><%= ' ' + agent.matched + '%' %></div>
+            </div>
+            <div>Shared Connections</div>
+            <div>
+                <div class="share-connection">
+                    <i class="fa fa-user"></i>
+                </div>
+                <div class="share-connection">
+                    <i class="fa fa-user"></i>
+                </div>
+                <div class="share-connection">
+                    <i class="fa fa-user"></i>
+                </div>
+                <div class="share-connection">
+                    <i class="fa fa-user"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <% if(!agent.tappedBy) { %>
+            <a href="#" class="btn tap">Tap</a>
+            <% } else if(agent.tappedBy == user.id){ %>
+            <a href="#" class="btn tapped">Tapped</a>
+            <% } %>
+        </div>
+        <div class="col-lg-2">
+            <a href="#" class="btn next-btn" disabled><i class="fa fa-angle-right"></i></a>
+        </div>
+    </div>
+    <% }) %>
+    
     <div class="col-md-12 matches-item">
         <div class="col-lg-2">
             <div class="avatar">

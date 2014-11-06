@@ -1,50 +1,39 @@
 
-body {
-    background: #ffffff;
+
+/* HEADINGS */
+
+h1,
+h2,
+h3,
+h4,
+h5 {
     font-family: 'Oswald', sans-serif;
-    font-size: 16px;
+    font-weight: normal;
+}
+
+h1 {
+    font-size: 40px;
+    line-height: 55px;
+}
+
+h2 {
+    font-size: 35px;
+    line-height: 50px;
+}
+
+h3 {
+    font-size: 30px;
+    line-height: 40px;
     font-weight: 300;
-    color: #313131;
-    line-height: 28px;
-    text-align: center;
-    overflow-x: hidden !important;
-    margin: auto !important;
 }
 
-.container{
-    width: 100% !important;
-}
-
-/* header-homepage */
-#header-homepage .header{
-    position: absolute;
-    top: 0;
-    padding: 20px 150px;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('/images/overlay-bg.png');
-    text-align: justify;
-}
-
-#header-homepage .header .logo{
-    color: #f98e40;
-    font-weight: bold;
+h4 {
     font-size: 25px;
-    float: left;
-    height: 80px;
+    line-height: 30px;
+    font-weight: 300;
 }
 
-#header-homepage .header .signin-button{
-    float: right;
-    font-size: 13px;
-    color: white;
-    border: 1px solid #878b88;
-    border-radius: 4px;
-    padding: 2px 10px;
-    float: right;
-}
-
-.section-bg {
-    background: #e5f6ff !important;
+h5 {
+    font-size: 20px;
+    font-weight: 300;
 }
