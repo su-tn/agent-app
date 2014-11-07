@@ -184,7 +184,10 @@ var updateProfileQuestion = function(){
     })
 }
 
-var showMessage = function(){
+var showMessage = function(title, message){
+    $('#message-modal .modal-title').text(title || 'Alert');
+    if(message) $('#message-modal .modal-body > p').text(message);
+    
     $('#message-modal').modal('show');
 }
 
@@ -215,6 +218,42 @@ $('#contact_form').submit(function(){
     
     this.submit();
 })
+
+var tapAgent = function(agentId){
+    $('.loading_content').show();
+    $.post('/agent/tap', {agentId: agentId}, function(res){
+        $('.loading_content').hide();
+        console.log(res);
+        if(res.error) showMessage('Error', res.error);
+        else window.location = '/dashboard';
+    })
+}
+
+var sendProposal = function(userId){
+    $('.loading_content').show();
+    $.post('/agent/send-proposal', {userId: userId}, function(res){
+        $('.loading_content').hide();
+        console.log(res);
+        if(res.error) showMessage('Error', res.error);
+        else showMessage(null, 'Sent successfully');
+        
+        //else window.location = '/dashboard-agent';
+    })
+}
+
+var viewProposal = function(agentId){
+    $('.loading_content').show();
+    $.post('/agent/view-proposal', {agentId: agentId}, function(res){
+        $('.loading_content').hide();
+        console.log(res);
+        
+        if(res.error) showMessage('Error', res.error);
+        else {
+            var $viewModal = $('#view-proposal');
+            $viewModal.modal('show');
+        }
+    })
+}
 
 $(function(){
     

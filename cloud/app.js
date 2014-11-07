@@ -10,6 +10,7 @@ var homeController = require('cloud/controllers/home.js');
 var accountController = require('cloud/controllers/account.js');
 var blogController = require('cloud/controllers/blog.js');
 var adminController = require('cloud/controllers/admin.js');
+var agentController = require('cloud/controllers/agent.js');
 
 // Required for initializing Express app in Cloud Code.
 var app = express();
@@ -97,6 +98,11 @@ app.get('/login', accountController.login);
 app.post('/login', accountController.login);
 app.get('/logout', accountController.logout);
 app.get('/dashboard', accountController.dashboard);
+app.get('/dashboard-agent', accountController.dashboardAgentMatches);
+
+app.post('/agent/tap', agentController.tapAgent);
+app.post('/agent/send-proposal', agentController.sendProposal);
+app.post('/agent/view-proposal', agentController.viewProposal);
 
 app.post('/account/update-profile', accountController.updateProfile);
 app.post('/account/update-profile-question', accountController.updateProfileQuestion);

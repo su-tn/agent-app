@@ -111,8 +111,54 @@
         <div class="col-md-12">
             <h3>Perspective clients you've matched with:</h3>
         </div>
+        <% users.forEach(function(u){ %>
         
         <div class="col-md-12 matches-item">
+            <div class="col-lg-2">
+                <div class="avatar">
+                    <% if(u.image){ %>
+                    <img src="<%= u.iamge.url %>"/>
+                    <% } else { %>
+                    <i class="fa fa-user"></i>
+                    <% } %>
+                </div>
+                <div class="progress-match"><%= u.matched + ' % Match'%></div>
+            </div>
+            <div class="col-lg-4">
+                <div>
+                    <%= (u.firstName || '') + ' ' + (u.lastName || '') %>
+                    <span class="lbl tapped">TAPPED</span>
+                </div>
+                <div>
+                    To Buy, House, 1000 sq ft
+                </div>
+                <div>
+                    <i class="fa fa-tag"></i>
+                    $350,000 - $400,000
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div>&nbsp;</div>
+                <div>
+                    <i class="fa fa-map-marker"></i>
+                    <%= u.address || '' %>
+                </div>
+                <div>
+                    <i class="fa fa-calendar"></i>
+                    Less than 6 months
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <% if(!user.tappedBy || user.tappedBy.indexOf(u.objectId) == -1) { %>
+                    <button class="btn send-proposal-button tapped" onclick="sendProposal('<%= u.objectId %>')">SEND PROPOSAL</button>
+                <% } else if(user.tappedBy.indexOf(u.objectId) != -1){ %>
+                    <a href="#" class="btn chat-btn ping">PING</a>
+                <% } %>
+            </div>
+        </div>
+        <% }) %>
+        
+        <!--div class="col-md-12 matches-item">
             <div class="col-lg-2">
                 <div class="avatar">
                     <i class="fa fa-user"></i>
@@ -146,7 +192,6 @@
                 <a href="#" class="btn chat-btn ping">PING</a>
             </div>
         </div>
-        
         
         <div class="col-md-12 matches-item">
             <div class="col-lg-2">
@@ -184,7 +229,6 @@
             </div>
         </div>
         
-        
         <div class="col-md-12 matches-item">
             <div class="col-lg-2">
                 <div class="avatar">
@@ -219,6 +263,6 @@
             <div class="col-lg-2">
                 <a href="#" class="btn send-proposal-button tapped">SEND PROPOSAL</a>
             </div>
-        </div>
+        </div-->
     </div>
 </div>

@@ -9,7 +9,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Alert</h4>
+                    <h4 class="modal-title" id="myModalLabel">Alert!</h4>
                 </div>
                 <div class="modal-body">
                     <p><%= (typeof message != 'undefined') ? message : '' %></p>
@@ -73,7 +73,7 @@
 <script>
     $(function(){
         <% if(typeof message != 'undefined' && message) { %>
-            showMessage();
+            showMessage('Alert');
         <% } %>
     })
 </script>

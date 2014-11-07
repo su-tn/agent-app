@@ -57,6 +57,11 @@ RESPONSIVE FIXES
         width: 100%;
         padding-top: 0;
     }
+    
+    #header-homepage .image{
+        background-size: 113%;
+    }
+
 
     header .intro-section {
         padding-top: 10%;
@@ -121,9 +126,15 @@ RESPONSIVE FIXES
         margin-top: 60px;
     }
     
+    #header-homepage .image{
+        height: 580px;
+        background-size: 156%;
+        background-position: 36% 20%;
+    }
+    
     #header-homepage .header{
         text-align: center;
-        padding-top: 100px;
+        padding-top: 230px;
     }
     
     #header-homepage .header .logo,
@@ -133,6 +144,17 @@ RESPONSIVE FIXES
     
     .intro-section .description{
         width: 100%;
+        top: 260px;
+    }
+
+    .intro-section .intro{
+        line-height: 70px;
+    }
+
+    .intro-section .intro2{
+        line-height: 55px;
+        margin-bottom: 20px;
+        margin-top: 0;
     }
     
     .home-nav .item{
@@ -201,8 +223,15 @@ RESPONSIVE FIXES
     .home-container .container{
         width: 100%;
     }
-    #header-homepage .header {
-        padding-top: 50px;
+    
+    #header-homepage .image{
+        background-size: 260%;
+        background-position: 27% 46%;
+    }
+    
+    .intro-section .description{
+        top: 300px;
+        padding: 0 15px;
     }
     
     .intro-section .intro{
@@ -235,6 +264,10 @@ RESPONSIVE FIXES
         min-width: 100px;
         padding: 11px 20px 11px 20px;
     }
+    
+    #how-it-work-agent .item {
+        width: 440px;
+    }
 }
 
 @media (max-width: 320px) {
@@ -242,13 +275,14 @@ RESPONSIVE FIXES
     html {
         font-size: 60.5%;
     }
+    
     #blogs h3{
         font-size: 22px;
         line-height: 32px;
     }
     
-    #header-homepage .header {
-        padding-top: 20px;
+    #header-homepage .image {
+        background-size: 287%;
     }
     
     .intro-section .intro {
@@ -271,6 +305,11 @@ RESPONSIVE FIXES
     
     .home-nav .item:nth-child(2) {
         width: 60px;
+    }
+    
+    #how-it-work-agent .item {
+        width: 280px;
+        font-size: 16px;
     }
 }
 

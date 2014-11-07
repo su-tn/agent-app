@@ -1,5 +1,4 @@
 var _ = require('underscore');
-var User = Parse.Object.extend('User');
 
 exports.login = function(req, res) {
 	var username = req.body.email;
@@ -21,7 +20,8 @@ exports.login = function(req, res) {
                 } else if (!priceRange){
                     res.redirect('/signup-2-agent');
                 } else {
-                    res.redirect('/dashboard');
+                    if(userType == '3') res.redirect('/dashboard-agent');
+                    else res.redirect('/dashboard');
                 }
 			}
 		}, function(error) {
@@ -153,7 +153,6 @@ exports.signupAgentVerify = function(req, res) {
 		user.set("email", username);
 		user.set("agentId", agent_id);
 		user.set("userType", '3'); //agent
-        user.set('timeframe', []);
         
 		user.signUp(null, {
 			success: function(user) {
@@ -186,18 +185,30 @@ exports.signup2Agent = function(req, res) {
     if(res.locals.isAuthenticated){
         if(req.body.kind_of_client){
             var user = res.locals.user;
+            var timeframe = req.body.timeframe;
+            var price_range = req.body.price_range;
             //kind_of_client: 1(byer), 2(seller), 3(both)
             //price_range_client: 1(500-750), 2(750 - 1mili), 3(over 1mili), 4(all)
             
-            user.set('kindOfClient', parseInt(req.body.kind_of_client));
-            user.set('timeframeClient', req.body.timeframe);
-            user.set('priceRangeClient', req.body.price_range);
-            user.save().then(function(){
-                res.redirect('/dashboard');
+            user.set('kindOfClient', req.body.kind_of_client);
+            if( typeof timeframe === 'string' ) {
+                timeframe = [ timeframe ];
+            }
+            if( typeof price_range === 'string' ) {
+                price_range = [ price_range ];
+            }
+            
+            user.set('timeframeClient', timeframe);
+            user.set('priceRangeClient', price_range);
+            user.save().then(function(user){
+                console.log(user);
+                res.redirect('/dashboard-agent');
             }, function(error){
+                console.log(error);
                 res.render('account/signup2Agent', {error: error.message});
             })
         } else {
+            console.log('not post');
             res.render('account/signup2Agent');
         }
     } else {
@@ -208,40 +219,118 @@ exports.signup2Agent = function(req, res) {
 exports.dashboard = function(req, res) {
     if(res.locals.isAuthenticated) {
         var currentUser = res.locals.user;
+        if(currentUser.get('userType') == '3') res.redirect('/dashboard-agent');
+        
         var timeframe = currentUser.get('timeframe');
         var priceRange = currentUser.get('priceRange');
-        var loan = currentUser.get('loan');
         var importantComplaint = currentUser.get('importantComplaint');
         var firstTimeUser = currentUser.get('firstTimeUser');
-        var licenceAgent = currentUser.get('licenceAgent');
-        var minDealClosedAgent = currentUser.get('minDealClosedAgent');
+        var licenceAgent = currentUser.get('licenceAgent') || [];
+        var minDealClosedAgent = currentUser.get('minDealClosedAgent') || [];
+        var receivedProposal = currentUser.get('receivedProposal') || [];
         
-        var queryUser = new Parse.Query(User);
+        var queryUser = new Parse.Query('User');
         
         queryUser.equalTo('userType', '3');
         queryUser.find().then(function(agents){
             console.log(agents);
             var users = [];
+            var agentSentProposalList = [];
+            
             for(var i=0; i<agents.length; i++){
-                var agent = agents[i];
-                var user = agent.toJSON();
+                var agent = agents[i].toJSON();
+                var timeframeClient = agent.timeframeClient || [];
+                var priceRangeClient = agent.priceRangeClient || [];
+                var loan = agent.loan;
+                var licenceTime = agent.licenceTime;
+                var minDealClosed = agent.minDealClosed;
                 var points = 0;
                 
-                if(agent.get('timeframeClient') && agent.get('timeframeClient').indexOf(timeframe) != -1) points += 20;
-                if(agent.get('priceRangeClient') && agent.get('priceRangeClient').indexOf(priceRange) != -1) points += 20;
-                if(agent.get('loan') == loan) points += 10;
-                if(agent.get('importantComplaint') == importantComplaint) points += 10;
-                if(agent.get('firstTimeUser') == firstTimeUser) points += 10;
-                if(licenceAgent && agent.get('licenceTime') && licenceAgent.indexOf(agent.get('licenceTime')) != -1) points += 10;
-                if(minDealClosedAgent && agent.get('minDealClosed') && minDealClosedAgent.indexOf(agent.get('minDealClosed')) != -1) points += 10;
+                if(timeframeClient.indexOf(timeframe) != -1) points += 20;
+                if(priceRangeClient.indexOf(priceRange) != -1) points += 20;
                 
-                user.matched = points;
+                if(currentUser.get('userType') == '1'){
+                    if(loan == currentUser.get('loan')) points += 10;
+                } else points += 10;
+                
+                if(importantComplaint == agent.importantComplaint){
+                    if(importantComplaint == '4') points += 10;
+                    else if(importantComplaint == '3') points += 5;
+                }
+                
+                if(firstTimeUser == agent.firstTimeUser) points += 10;
+                if(licenceAgent.indexOf(licenceTime) != -1) points += 10;
+                if(minDealClosedAgent.indexOf(minDealClosed) != -1) points += 10;
+                
+                agent.matched = Math.round(points * 100 / 90);
+                
+                if(receivedProposal.indexOf(agent.objectId) != -1) agentSentProposalList.push(agent);
+                else users.push(agent);
+            }
+            
+            var users = _.sortBy(users,function(a){ return -a.matched; });
+            var agentSentProposalList = _.sortBy(agentSentProposalList, function(a){ return -a.matched; });
+            console.log(users);
+        
+            res.render('dashboard/index', {agents: users, agentSentProposalList: agentSentProposalList});
+        });
+    } else {
+        res.redirect('/login?redirectUrl=dashboard');
+    }
+};
+
+
+exports.dashboardAgentMatches = function(req, res) {
+    if(res.locals.isAuthenticated) {
+        var currentUser = res.locals.user;
+        var timeframeClient = currentUser.get('timeframeClient') || [];
+        var priceRangeClient = currentUser.get('priceRangeClient') || [];
+        var loan = currentUser.get('loan');
+        var importantComplaint = currentUser.get('importantComplaint');
+        var firstTimeUser = currentUser.get('firstTimeUser');
+        var licenceTime = currentUser.get('licenceTime');
+        var minDealClosed = currentUser.get('minDealClosed');
+        
+        var queryUser = new Parse.Query('User');
+        
+        queryUser.exists('userType')        
+        queryUser.notEqualTo('userType', '3');
+        queryUser.find().then(function(results){
+            console.log(results);
+            
+            var users = [];
+            for(var i=0; i<results.length; i++){
+                var user = results[i].toJSON();
+                var timeframe = user.timeframe || '';
+                var priceRange = user.priceRange || '0';
+                var licenceAgent = user.licenceAgent || [];
+                var minDealClosedAgent = user.minDealClosedAgent || [];
+                var points = 0;
+                
+                if(timeframeClient.indexOf(timeframe) != -1) points += 20;
+                if(priceRangeClient.indexOf(priceRange) != -1) points += 20;
+                
+                if(user.userType == '1'){
+                    if(loan == user.loan) points += 10;
+                } else points += 10;
+                
+                if(importantComplaint == user.importantComplaint){
+                    if(importantComplaint == '4') points += 10;
+                    else if(importantComplaint == '3') points += 5;
+                }
+                
+                if(firstTimeUser == user.firstTimeUser) points += 10;
+                if(licenceAgent.indexOf(licenceTime) != -1) points += 10;
+                if(minDealClosedAgent.indexOf(minDealClosed) != -1) points += 10;
+                
+                user.matched = Math.round(points * 100 / 90);
                 users.push(user);
             }
             
+            var users = _.sortBy(users,function(a){ return -a.matched; });
+            
             console.log(users);
-        
-            res.render('dashboard/index', {agents: users});
+            res.render('dashboard/index', {users: users});
         });
     } else {
         res.redirect('/login?redirectUrl=dashboard');

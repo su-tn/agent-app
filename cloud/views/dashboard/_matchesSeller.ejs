@@ -21,11 +21,59 @@
         </form>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>Proposals Received:</h3>
+    </div>
+    
+    <% agentSentProposalList.forEach(function(agent){ %>
+    <div class="col-md-12 matches-item">
+        <div class="col-lg-2">
+            <div class="avatar">
+                <% if(agent.image){ %>
+                <img src="<%= agent.iamge.url %>"/>
+                <% } else { %>
+                <i class="fa fa-user"></i>
+                <% } %>
+                
+                <!--a href="#review-agent" class="btn review-agent-button" data-toggle="modal" data-target="#review-agent">REVIEW</a-->
+            </div>
+        </div>
+        <div class="col-lg-3 description">
+            <div class="rate">
+                <% var rate = agent.rate || 0 %>
+                <% for(var i=0; i<rate; i++) { %>
+                    <i class="fa fa-star"></i>
+                <% } %>
+                <% for(var j=rate; j<5; j++) { %>
+                    <i class="fa fa-star-o"></i>
+                <% } %>
+            </div>
+            <div class="full-name"><%= (agent.firstName || '') + ' ' + (agent.lastName || '') %></div>
+            <div class="address"><%= agent.address || '' %></div>
+            <div class="exp"><%= (agent.experience || 0) + ' years experience'%></div>
+        </div>
+        <div class="col-lg-3">
+            <div class="progess">
+                <div style="width: <%= agent.matched%>%;"><%= ' ' + agent.matched + '%' %></div>
+            </div>
+            <a href="#" class="connect-linkedin">Connect with LinkedIn to view Share Connections</a>
+        </div>
+        <div class="col-lg-2">
+            <button class="btn proposal" onclick="viewProposal('<%= agent.objectId %>')">View Proposals</button>
+        </div>
+        <div class="col-lg-2">
+            <a href="#" class="btn next-btn" disabled><i class="fa fa-angle-right"></i></a>
+        </div>
+    </div>
+    <% }) %>
+</div>
+
 <div class="row">
     <div class="col-md-12">
         <h3>Agents you've matched with:</h3>
     </div>
-    
     
     <% agents.forEach(function(agent){ %>
     
@@ -57,27 +105,13 @@
             <div class="progess">
                 <div style="width: <%= agent.matched%>%;"><%= ' ' + agent.matched + '%' %></div>
             </div>
-            <div>Shared Connections</div>
-            <div>
-                <div class="share-connection">
-                    <i class="fa fa-user"></i>
-                </div>
-                <div class="share-connection">
-                    <i class="fa fa-user"></i>
-                </div>
-                <div class="share-connection">
-                    <i class="fa fa-user"></i>
-                </div>
-                <div class="share-connection">
-                    <i class="fa fa-user"></i>
-                </div>
-            </div>
+            <a href="#" class="connect-linkedin">Connect with LinkedIn to view Share Connections</a>
         </div>
         <div class="col-lg-2">
-            <% if(!agent.tappedBy) { %>
-            <a href="#" class="btn tap">Tap</a>
-            <% } else if(agent.tappedBy == user.id){ %>
-            <a href="#" class="btn tapped">Tapped</a>
+            <% if(!agent.tappedBy || agent.tappedBy.indexOf(user.id) == -1) { %>
+                <button class="btn tap" onclick="tapAgent('<%= agent.objectId %>')">Tap</button>
+            <% } else if(agent.tappedBy.indexOf(user.id) != -1){ %>
+                <button class="btn tapped">Tapped</button>
             <% } %>
         </div>
         <div class="col-lg-2">
@@ -85,97 +119,67 @@
         </div>
     </div>
     <% }) %>
-    
-    <div class="col-md-12 matches-item">
-        <div class="col-lg-2">
-            <div class="avatar">
-                <i class="fa fa-user"></i>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade view-modal" id="view-proposal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="modal-heading">Proposal from Doug Bend</h3>
+                <div class="modal-avatar">
+                    <img src="http://www.iconsdb.com/icons/preview/gray/manager-xxl.png" width="90">
+                    <div class="summary">
+                        Submitted on 09/23/14
+                        <br />
+                        Expected Response by 10/16/14
+                    </div>
+                </div>
+                <p class="description">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore 
+                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 
+                    ut aliquip ex ea commodo consequat.
+                </p>
+                <br />
+                <div class="name">-Doug</div>
+                <br />
+                <div class="btn standard-button view-proposal-button">
+                    <i class="fa fa-download"></i>
+                    VIEW PROPOSAL
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-12 footer-buttons">
+                    <div class="col-sm-4">
+                        <div class="btn standard-button pass-button">
+                            <i class="fa fa-times-circle"></i>
+                            PASS
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="btn standard-button chat-button">
+                            <i class="fa fa-comment"></i>
+                            CHAT
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="btn standard-button select-button">
+                            <i class="fa fa-check"></i>
+                            SELECT
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-lg-3 description">
-            <div class="rate">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
-            </div>
-            <div class="full-name">Jessica Parker</div>
-            <div class="address">San Jose, CA</div>
-            <div class="exp">4 years experience</div>
-        </div>
-        <div class="col-lg-3">
-            <div class="progess show-tooltip" data-toggle="tooltip" data-placement="bottom" title="How well you matched with this agent">
-                <div style="width: 94%;">&nbsp; 94%</div>
-            </div>
-        </div>
-        <div class="col-lg-2">
-            <a href="#" class="btn" disabled>Tap</a>
-        </div>
-        <div class="col-lg-2">
-            <a href="#" class="btn next-btn" disabled><i class="fa fa-angle-right"></i></a>
-        </div>
+      </div>
     </div>
-    
-    <div class="col-md-12 matches-item">
-        <div class="col-lg-2">
-            <div class="avatar">
-                <i class="fa fa-user"></i>
-            </div>
-        </div>
-        <div class="col-lg-3 description">
-            <div class="rate">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
-                <i class="fa fa-star-o"></i>
-            </div>
-            <div class="full-name">Rob Roy</div>
-            <div class="address">San Jose, CA</div>
-            <div class="exp">4 years experience</div>
-        </div>
-        <div class="col-lg-3">
-            <div class="progess show-tooltip" data-toggle="tooltip" data-placement="bottom" title="How well you matched with this agent">
-                <div style="width: 89%;">&nbsp; 89%</div>
-            </div>
-        </div>
-        <div class="col-lg-2">
-            <a href="#" class="btn tapped">Tapped</a>
-        </div>
-        <div class="col-lg-2">
-            <a href="#" class="btn next-btn" disabled><i class="fa fa-angle-right"></i></a>
-        </div>
-    </div>
-    
-    <div class="col-md-12 matches-item">
-        <div class="col-lg-2">
-            <div class="avatar">
-                <i class="fa fa-user"></i>
-            </div>
-        </div>
-        <div class="col-lg-3 description">
-            <div class="rate">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
-                <i class="fa fa-star-o"></i>
-            </div>
-            <div class="full-name">Sarah Conner</div>
-            <div class="address">San Francisco, CA</div>
-            <div class="exp">4 years experience</div>
-        </div>
-        <div class="col-lg-3">
-            <div class="progess show-tooltip" data-toggle="tooltip" data-placement="bottom" title="How well you matched with this agent">
-                <div style="width: 81%;">&nbsp; 81%</div>
-            </div>
-        </div>
-        <div class="col-lg-2">
-            <a href="#" class="btn received">Received</a>
-        </div>
-        <div class="col-lg-2">
-            <a href="#" class="btn next-btn" disabled><i class="fa fa-angle-right"></i></a>
-        </div>
-    </div>
+  </div>
 </div>

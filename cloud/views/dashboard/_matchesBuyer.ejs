@@ -26,53 +26,49 @@
     <div class="col-md-12">
         <h3>Proposals Received:</h3>
     </div>
+    <% agentSentProposalList.forEach(function(agent){ %>
     
     <div class="col-md-12 matches-item">
         <div class="col-lg-2">
             <div class="avatar">
+                <% if(agent.image){ %>
+                <img src="<%= agent.iamge.url %>"/>
+                <% } else { %>
                 <i class="fa fa-user"></i>
-                <a href="#review-agent" class="btn review-agent-button" data-toggle="modal" data-target="#review-agent">REVIEW</a>
+                <% } %>
+                
+                <!--a href="#review-agent" class="btn review-agent-button" data-toggle="modal" data-target="#review-agent">REVIEW</a-->
             </div>
         </div>
         <div class="col-lg-3 description">
             <div class="rate">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-o"></i>
+                <% var rate = agent.rate || 0 %>
+                <% for(var i=0; i<rate; i++) { %>
+                    <i class="fa fa-star"></i>
+                <% } %>
+                <% for(var j=rate; j<5; j++) { %>
+                    <i class="fa fa-star-o"></i>
+                <% } %>
             </div>
-            <div class="full-name">Jessica Parker</div>
-            <div class="address">San Jose, CA</div>
-            <div class="exp">4 years experience</div>
+            <div class="full-name"><%= (agent.firstName || '') + ' ' + (agent.lastName || '') %></div>
+            <div class="address"><%= agent.address || '' %></div>
+            <div class="exp"><%= (agent.experience || 0) + ' years experience'%></div>
         </div>
         <div class="col-lg-3">
             <div class="progess">
-                <div style="width: 94%;">&nbsp; 94%</div>
+                <div style="width: <%= agent.matched%>%;"><%= ' ' + agent.matched + '%' %></div>
             </div>
-            <div>Shared Connections</div>
-            <div>
-                <div class="share-connection">
-                    <i class="fa fa-user"></i>
-                </div>
-                <div class="share-connection">
-                    <i class="fa fa-user"></i>
-                </div>
-                <div class="share-connection">
-                    <i class="fa fa-user"></i>
-                </div>
-                <div class="share-connection">
-                    <i class="fa fa-user"></i>
-                </div>
-            </div>
+            <a href="#" class="connect-linkedin">Connect with LinkedIn to view Share Connections</a>
         </div>
         <div class="col-lg-2">
-            <a href="#view-proposal" class="btn proposal" data-toggle="modal" data-target="#view-proposal">View Proposals</a>
+            <a href="#view-proposal" class="btn proposal" data-toggle="modal" 
+                data-target="#view-proposal" onclick="viewProposal('<%= agent.objectId %>')">View Proposals</a>
         </div>
         <div class="col-lg-2">
             <a href="#" class="btn next-btn" disabled><i class="fa fa-angle-right"></i></a>
         </div>
     </div>
+    <% }) %>
 </div>
 
 <div class="row">
@@ -110,27 +106,13 @@
             <div class="progess">
                 <div style="width: <%= agent.matched%>%;"><%= ' ' + agent.matched + '%' %></div>
             </div>
-            <div>Shared Connections</div>
-            <div>
-                <div class="share-connection">
-                    <i class="fa fa-user"></i>
-                </div>
-                <div class="share-connection">
-                    <i class="fa fa-user"></i>
-                </div>
-                <div class="share-connection">
-                    <i class="fa fa-user"></i>
-                </div>
-                <div class="share-connection">
-                    <i class="fa fa-user"></i>
-                </div>
-            </div>
+            <a href="#" class="connect-linkedin">Connect with LinkedIn to view Share Connections</a>
         </div>
         <div class="col-lg-2">
-            <% if(!agent.tappedBy) { %>
-            <a href="#" class="btn tap">Tap</a>
-            <% } else if(agent.tappedBy == user.id){ %>
-            <a href="#" class="btn tapped">Tapped</a>
+            <% if(!agent.tappedBy || agent.tappedBy.indexOf(user.id) == -1) { %>
+                <button class="btn tap" onclick="tapAgent('<%= agent.objectId %>')">Tap</button>
+            <% } else if(agent.tappedBy.indexOf(user.id) != -1){ %>
+                <button class="btn tapped">Tapped</button>
             <% } %>
         </div>
         <div class="col-lg-2">
