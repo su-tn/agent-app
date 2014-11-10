@@ -10,7 +10,7 @@ RESPONSIVE FIXES
     }
 }
 
- @media (max-width: 991px) {
+@media (max-width: 991px) {
  
     
     body {
@@ -22,6 +22,9 @@ RESPONSIVE FIXES
         padding: 15px 10px;
     }
     
+    .home-container .container{
+        width: 890px;
+    }
 
     .home-container footer .container{
         width: 964px;
@@ -32,6 +35,10 @@ RESPONSIVE FIXES
     
     html {
         font-size: 90%;
+    }
+    
+    .home-container .container{
+        max-width: 890px;
     }
 
     header .color-overlay {
@@ -44,6 +51,7 @@ RESPONSIVE FIXES
         text-align: center;
         margin-top: 10px;
     }
+    
     .sticky-navigation .navbar-header a {
         float: none !important;
     }
@@ -95,10 +103,10 @@ RESPONSIVE FIXES
     }
     
     .home-container .container{
-        width: 750px;
+        width: auto;
     }
 
-    .home-container .sticky-navigation{
+    .sticky-navigation{
         display: block;
         padding: 0 !important;
         min-height: 60px;
@@ -106,13 +114,13 @@ RESPONSIVE FIXES
         top: 0;
     }
 
-    .home-container .sticky-navigation .navbar-brand{
+    .sticky-navigation .navbar-brand{
         color: #f98e40;
         font-size: 25px;
         line-height: 28px;
     }
 
-    .home-container .sticky-navigation .navbar-toggle{
+    .sticky-navigation .navbar-toggle{
         margin: 0;
         padding: 23px;
         background-color: #33a3dc;
@@ -188,6 +196,10 @@ RESPONSIVE FIXES
         width: 450px;
     }
     
+    .home-container footer .container{
+        width: auto;
+    }
+    
     footer > div {
         padding-top: 35px;
         padding-bottom: 10px;
@@ -218,10 +230,6 @@ RESPONSIVE FIXES
     
     html {
         font-size: 65%;
-    }
-    
-    .home-container .container{
-        width: 100%;
     }
     
     #header-homepage .image{
@@ -276,40 +284,60 @@ RESPONSIVE FIXES
         font-size: 60.5%;
     }
     
+    .home-container .container{
+        width: auto;
+    }
+
+    .sticky-navigation .main-navigation li{
+      padding: 0px 10px;
+    }
+    
+    .sticky-navigation .navbar-brand {
+        font-size: 22px;
+    }
+    
     #blogs h3{
         font-size: 22px;
         line-height: 32px;
     }
     
     #header-homepage .image {
-        background-size: 287%;
+        background-size: 248%;
+        height: 420px;
+    }
+    
+    .intro-section .description {
+        top: 150px;
     }
     
     .intro-section .intro {
-        font-size: 25px;
+        font-size: 30px;
         font-weight: normal;
-        line-height: 26px;
+        line-height: 40px;
     }
     
     .intro-section .intro2 {
-        font-size: 18px;
+        font-size: 20px;
         line-height: 30px;
     }
     
-    .home-nav .item {
-        width: 115px;
-        height: 70px;
-        line-height: 70px;
-        font-size: 14px;
-    }
-    
-    .home-nav .item:nth-child(2) {
-        width: 60px;
+    .home-nav {
+        display: none;
     }
     
     #how-it-work-agent .item {
         width: 280px;
         font-size: 16px;
+    }
+    
+    #how-it-work-agent .checkbox-icon {
+        margin-right: 20px;
+    }
+    
+    #example-agent-seeker .block, 
+    #example-agent-dash .block {
+        font-size: 20px;
+        text-align: justify;
     }
 }
 
@@ -321,15 +349,15 @@ RESPONSIVE FIXES
         margin-top: 0;
         font-weight: bold;
     }
+    
     .full-screen .intro-section .intro {
        margin-bottom: 0;
-            
     }
     
     .full-screen .intro-section h5 {
-        
         font-size: 14px;
     }
+    
     .full-screen .intro-section .buttons { 
         margin-top: 0;
     }

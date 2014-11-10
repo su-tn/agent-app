@@ -10,8 +10,8 @@
             <% var buyingProperty = user.get('buyingProperty') || [] %>
             <% var featuresRequired = user.get('featuresRequired') || [] %>
             <% var firstTimeUser = user.get('firstTimeUser') || 1 %>
-            <% var licenceAgent = user.get('licenceAgent') || 1 %>
-            <% var minDealClosed = user.get('minDealClosedAgent') || 1 %>
+            <% var licenceAgent = user.get('licenceAgent') || [] %>
+            <% var minDealClosed = user.get('minDealClosedAgent') || [] %>
             
             <div class="form-group">
                 <label>Is english your second language?  If yes, what language(s) 
@@ -288,18 +288,18 @@
                 <label>Would you be willing to work with an agent who has been licensed for:</label>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="licence_agent" value="1" <%= (licenceAgent == 1) ? 'checked' : '' %>> 
+                        <input type="checkbox" name="licence_agent" value="1" <%= (licenceAgent.indexOf('1') != -1) ? 'checked' : '' %>> 
                         less than two years
                     </label>
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="licence_agent" value="2" <%= (licenceAgent == 2) ? 'checked' : '' %>> 
+                        <input type="checkbox" name="licence_agent" value="2" <%= (licenceAgent.indexOf('2') != -1) ? 'checked' : '' %>> 
                         2-5 years</label>
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="licence_agent" value="3" <%= (licenceAgent == 3) ? 'checked' : '' %>> 
+                        <input type="checkbox" name="licence_agent" value="3" <%= (licenceAgent.indexOf('3') != -1) ? 'checked' : '' %>> 
                         5 or more years</label>
                 </div>
             </div>
@@ -308,23 +308,23 @@
                 <label>Would you be willing to work with an agent who has closed a minimum of:</label>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="min_deal_closed" value="1" <%= (minDealClosed == 1) ? 'checked' : '' %>> 
+                        <input type="checkbox" name="min_deal_closed" value="1" <%= (minDealClosed.indexOf('1') != -1) ? 'checked' : '' %>> 
                         0 to 5 deals in the last year
                     </label>
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="min_deal_closed" value="2" <%= (minDealClosed == 2) ? 'checked' : '' %>> 
+                        <input type="checkbox" name="min_deal_closed" value="2" <%= (minDealClosed.indexOf('2') != -1) ? 'checked' : '' %>> 
                         5 - 10 deals in the last year</label>
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="min_deal_closed" value="3" <%= (minDealClosed == 3) ? 'checked' : '' %>> 
+                        <input type="checkbox" name="min_deal_closed" value="3" <%= (minDealClosed.indexOf('3') != -1) ? 'checked' : '' %>> 
                         10 - 20 deals in the last year</label>
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="min_deal_closed" value="4" <%= (minDealClosed == 4) ? 'checked' : '' %>> 
+                        <input type="checkbox" name="min_deal_closed" value="4" <%= (minDealClosed.indexOf('4') != -1) ? 'checked' : '' %>> 
                         20 or more deals in the last year</label>
                 </div>
             </div>

@@ -228,6 +228,7 @@ exports.dashboard = function(req, res) {
         var licenceAgent = currentUser.get('licenceAgent') || [];
         var minDealClosedAgent = currentUser.get('minDealClosedAgent') || [];
         var receivedProposal = currentUser.get('receivedProposal') || [];
+        var agentChosen = currentUser.get('agentChosen') || [];
         
         var queryUser = new Parse.Query('User');
         
@@ -236,6 +237,7 @@ exports.dashboard = function(req, res) {
             console.log(agents);
             var users = [];
             var agentSentProposalList = [];
+            var agentChosenList = [];
             
             for(var i=0; i<agents.length; i++){
                 var agent = agents[i].toJSON();
@@ -263,16 +265,21 @@ exports.dashboard = function(req, res) {
                 if(minDealClosedAgent.indexOf(minDealClosed) != -1) points += 10;
                 
                 agent.matched = Math.round(points * 100 / 90);
-                
-                if(receivedProposal.indexOf(agent.objectId) != -1) agentSentProposalList.push(agent);
+                if(agentChosen.indexOf(agent.objectId) != -1) agentChosenList.push(agent);
+                else if(receivedProposal.indexOf(agent.objectId) != -1) agentSentProposalList.push(agent);
                 else users.push(agent);
             }
             
             var users = _.sortBy(users,function(a){ return -a.matched; });
             var agentSentProposalList = _.sortBy(agentSentProposalList, function(a){ return -a.matched; });
+            var agentChosenList = _.sortBy(agentChosenList, function(a){ return -a.matched; });
             console.log(users);
         
-            res.render('dashboard/index', {agents: users, agentSentProposalList: agentSentProposalList});
+            res.render('dashboard/index', {
+                agents: users,
+                agentSentProposalList: agentSentProposalList,
+                agentChosenList: agentChosenList
+            });
         });
     } else {
         res.redirect('/login?redirectUrl=dashboard');
@@ -283,6 +290,8 @@ exports.dashboard = function(req, res) {
 exports.dashboardAgentMatches = function(req, res) {
     if(res.locals.isAuthenticated) {
         var currentUser = res.locals.user;
+        if(currentUser.get('userType') != '3') res.redirect('/dashboard');
+        
         var timeframeClient = currentUser.get('timeframeClient') || [];
         var priceRangeClient = currentUser.get('priceRangeClient') || [];
         var loan = currentUser.get('loan');
@@ -299,12 +308,14 @@ exports.dashboardAgentMatches = function(req, res) {
             console.log(results);
             
             var users = [];
+            var sentProposalList = [];
             for(var i=0; i<results.length; i++){
                 var user = results[i].toJSON();
                 var timeframe = user.timeframe || '';
                 var priceRange = user.priceRange || '0';
                 var licenceAgent = user.licenceAgent || [];
                 var minDealClosedAgent = user.minDealClosedAgent || [];
+                var receivedProposal = user.receivedProposal || []
                 var points = 0;
                 
                 if(timeframeClient.indexOf(timeframe) != -1) points += 20;
@@ -324,13 +335,16 @@ exports.dashboardAgentMatches = function(req, res) {
                 if(minDealClosedAgent.indexOf(minDealClosed) != -1) points += 10;
                 
                 user.matched = Math.round(points * 100 / 90);
-                users.push(user);
+                
+                if(receivedProposal.indexOf(currentUser.id) != -1) sentProposalList.push(user);
+                else users.push(user);
             }
             
-            var users = _.sortBy(users,function(a){ return -a.matched; });
+            var users = _.sortBy(users, function(a){ return -a.matched; });
+            var sentProposalList = _.sortBy(sentProposalList, function(a){ return -a.matched; });
             
             console.log(users);
-            res.render('dashboard/index', {users: users});
+            res.render('dashboard/index', {users: users, sentProposalList: sentProposalList});
         });
     } else {
         res.redirect('/login?redirectUrl=dashboard');

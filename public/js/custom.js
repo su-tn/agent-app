@@ -179,8 +179,13 @@ var updateProfileQuestion = function(){
     
     $.post('account/update-profile-question', $('#dash_qs_form').serialize(), function(res){
         console.log(res);
-        $('.loading_content').hide();
-        if(res.error) $('.error').text(res.error);
+        
+        if(res.error) {
+            $('.loading_content').hide();
+            showMessage('Error', res.error);
+        } else {
+            window.location.reload();
+        }
     })
 }
 
@@ -230,16 +235,45 @@ var tapAgent = function(agentId){
 }
 
 var sendProposal = function(userId){
-    $('.loading_content').show();
-    $.post('/agent/send-proposal', {userId: userId}, function(res){
-        $('.loading_content').hide();
-        console.log(res);
-        if(res.error) showMessage('Error', res.error);
-        else showMessage(null, 'Sent successfully');
-        
-        //else window.location = '/dashboard-agent';
-    })
+    $('#send-proposal-form input[type="hidden"]').val('');
+    $('#send-proposal-form #user_id').val(userId);
+    $('#agent-send-proposal').modal('show');
 }
+
+var submitSendProposal = function(){
+    var fileUploadControl = $('#proposal')[0];
+    if (fileUploadControl.files.length <= 0) {
+        showMessage('Error', 'Proposal file is required');
+        return false;
+    }
+    
+    if(!$('#agree').is(':checked')){
+        showMessage('Error', 'You must be agree Terms and Conditions');
+        return false;
+    }
+    
+    $('#agent-send-proposal').modal('hide');
+    $('.loading_content').show();
+    
+    Parse.initialize("U6gB9LUOcvV0JPcDVuBteFjkUvfsT6kHBG6Ql64C", "bd6ZJN1kpxqjX6Bt7pM5id1nTpAW58RDEBxnf7rt");
+    
+    var file = fileUploadControl.files[0];
+    var parseFile = new Parse.File(file.name, file);
+    parseFile.save().then(function(proposalFile) {
+        console.log(proposalFile);
+        $('#send-proposal-form #file').val(proposalFile.url());
+        
+        $.post('/agent/send-proposal', $('#send-proposal-form').serialize(), function(res){
+            if(res.error) {
+                $('.loading_content').hide();
+                showMessage('Error', res.error);
+            } else window.location = '/dashboard-agent';
+        });
+    }, function(error) {
+        console.log(error);
+        showMessage('Error', error.message);
+    });
+} 
 
 var viewProposal = function(agentId){
     $('.loading_content').show();
@@ -250,9 +284,33 @@ var viewProposal = function(agentId){
         if(res.error) showMessage('Error', res.error);
         else {
             var $viewModal = $('#view-proposal');
+            var proposal = res.proposal;
+            var agent = res.agent;
+            if(agent.image) $viewModal.find('.modal-avatar > img').attr('src', agent.image.url);
+            $viewModal.find('.agent-name').text((agent.firstName || '') + ' ' + (agent.lastName || ''));
+            $viewModal.find('.comment').text(proposal.comment);
+            $viewModal.find('.agent-firstname').text((agent.firstName ? ('-' + agent.firstName) : ''));
+            $viewModal.find('#proposal-file').attr('href', proposal.file);
+            $viewModal.find('.select-button').data('agentId', agent.objectId);
+            
             $viewModal.modal('show');
         }
     })
+}
+
+var chosenAgent = function(){
+    $('#view-proposal').modal('hide');
+    $('.loading_content').show();
+    
+    var agentId = $('#view-proposal .select-button').data('agentId');
+    $.post('/agent/chosen', {agentId: agentId}, function(res){
+        console.log(res);
+        
+        if(res.error) {
+            $('.loading_content').hide();
+            showMessage('Error', res.error);
+        } else window.location = '/dashboard';
+    });
 }
 
 $(function(){

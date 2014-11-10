@@ -65,54 +65,13 @@
         </div>
     </div>
     
+    <% if(sentProposalList.length > 0){ %>
     <div class="row">
         <div class="col-md-12">
             <h3>Perspective clients you've sent proposal to:</h3>
         </div>
         
-        <div class="col-md-12 matches-item">
-            <div class="col-lg-2">
-                <div class="avatar">
-                    <i class="fa fa-user"></i>
-                </div>
-                <div class="progress-match">80% Match</div>
-            </div>
-            <div class="col-lg-4">
-                <div>
-                    Shiela Brown
-                    <span class="lbl submitted">ACCEPTED</span>
-                </div>
-                <div>
-                    To Buy, House, 1000 sq ft
-                </div>
-                <div>
-                    <i class="fa fa-tag"></i>
-                    $350,000 - $400,000
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div>&nbsp;</div>
-                <div>
-                    <i class="fa fa-map-marker"></i>
-                    Richmond, CA
-                </div>
-                <div>
-                    <i class="fa fa-calendar"></i>
-                    Less than 6 months
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <a href="#" class="btn chat-btn submitted">CHAT</a>
-            </div>
-        </div>
-    </div>
-    
-    <div class="row">
-        <div class="col-md-12">
-            <h3>Perspective clients you've matched with:</h3>
-        </div>
-        <% users.forEach(function(u){ %>
-        
+        <% sentProposalList.forEach(function(u){ %>
         <div class="col-md-12 matches-item">
             <div class="col-lg-2">
                 <div class="avatar">
@@ -122,12 +81,12 @@
                     <i class="fa fa-user"></i>
                     <% } %>
                 </div>
-                <div class="progress-match"><%= u.matched + ' % Match'%></div>
+                <div class="progress-match"><%= (u.matched || 0) + '% Match'%></div>
             </div>
             <div class="col-lg-4">
                 <div>
                     <%= (u.firstName || '') + ' ' + (u.lastName || '') %>
-                    <span class="lbl tapped">TAPPED</span>
+                    <span class="lbl submitted">SUBMITTED</span>
                 </div>
                 <div>
                     To Buy, House, 1000 sq ft
@@ -149,10 +108,62 @@
                 </div>
             </div>
             <div class="col-lg-2">
-                <% if(!user.tappedBy || user.tappedBy.indexOf(u.objectId) == -1) { %>
-                    <button class="btn send-proposal-button tapped" onclick="sendProposal('<%= u.objectId %>')">SEND PROPOSAL</button>
-                <% } else if(user.tappedBy.indexOf(u.objectId) != -1){ %>
+                <a href="#" class="btn chat-btn submitted">CHAT</a>
+            </div>
+        </div>
+        <% }) %>
+    </div>
+    <% } %>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Perspective clients you've matched with:</h3>
+        </div>
+        
+        <% users.forEach(function(u){ %>
+        
+        <div class="col-md-12 matches-item">
+            <div class="col-lg-2">
+                <div class="avatar">
+                    <% if(u.image){ %>
+                    <img src="<%= u.iamge.url %>"/>
+                    <% } else { %>
+                    <i class="fa fa-user"></i>
+                    <% } %>
+                </div>
+                <div class="progress-match"><%= u.matched + ' % Match'%></div>
+            </div>
+            <div class="col-lg-4">
+                <div>
+                    <%= (u.firstName || '') + ' ' + (u.lastName || '') %>
+                    <% if(user.tappedBy && user.tappedBy.indexOf(u.objectId) != -1){ %>
+                    <span class="lbl tapped">TAPPED</span>
+                    <% } %>
+                </div>
+                <div>
+                    To Buy, House, 1000 sq ft
+                </div>
+                <div>
+                    <i class="fa fa-tag"></i>
+                    $350,000 - $400,000
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div>&nbsp;</div>
+                <div>
+                    <i class="fa fa-map-marker"></i>
+                    <%= u.address || '' %>
+                </div>
+                <div>
+                    <i class="fa fa-calendar"></i>
+                    Less than 6 months
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <% if(!user.get('tappedBy') || user.get('tappedBy').indexOf(u.objectId) == -1) { %>
                     <a href="#" class="btn chat-btn ping">PING</a>
+                <% } else if(user.get('tappedBy').indexOf(u.objectId) != -1){ %>
+                    <button class="btn send-proposal-button tapped" onclick="sendProposal('<%= u.objectId %>')">SEND PROPOSAL</button>
                 <% } %>
             </div>
         </div>
@@ -266,3 +277,50 @@
         </div-->
     </div>
 </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade view-modal" id="agent-send-proposal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="modal-heading">Submit Proposal</h3>
+                <p class="description">
+                    Provide a brief message introducing your proposal:
+                </p>
+                
+                <form action="" id="send-proposal-form">
+                    <input type="hidden" class="hidden-input" id="user_id" name="user_id" value=""/>
+                    <input type="hidden" class="hidden-input" id="file" name="file" value=""/>
+                    
+                    <textarea class="form-control" name="comment" rows="5" placeholder="Type comments here"></textarea>
+                    
+                    <p>Attach proposal file here:</p>
+                    <input type="file" id="proposal" value="BROWSE FOR FILE" />
+                    
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="agree" value="" > 
+                            I agree to the <a href="/terms-of-use" target="_blank">Terms and Conditions</a>
+                        </label>
+                    </div>
+                    <br />
+                    <div class="form-group align-center">
+                        <a class="btn standard-nocolor-button" onclick="clearForm('#send-proposal-form')">Clear form</a>
+                        <button type="button" onclick="submitSendProposal()" class="btn standard-button view-proposal-button">SUBMIT</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript" src="/admin/js/parse-1.2.18.min.js"></script>

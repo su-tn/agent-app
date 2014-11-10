@@ -103,6 +103,7 @@ app.get('/dashboard-agent', accountController.dashboardAgentMatches);
 app.post('/agent/tap', agentController.tapAgent);
 app.post('/agent/send-proposal', agentController.sendProposal);
 app.post('/agent/view-proposal', agentController.viewProposal);
+app.post('/agent/chosen', agentController.chosenAgent);
 
 app.post('/account/update-profile', accountController.updateProfile);
 app.post('/account/update-profile-question', accountController.updateProfileQuestion);

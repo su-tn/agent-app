@@ -22,12 +22,64 @@
     </div>
 </div>
 
+<% if(agentChosenList.length > 0){ %>
+<div class="row">
+    <div class="col-md-12">
+        <h3>Agent Chosen!</h3>
+    </div>
+    <% agentChosenList.forEach(function(agent){ %>
+    
+    <div class="col-md-12 matches-item">
+        <div class="col-lg-2">
+            <div class="avatar">
+                <% if(agent.image){ %>
+                <img src="<%= agent.iamge.url %>"/>
+                <% } else { %>
+                <i class="fa fa-user"></i>
+                <% } %>
+                
+                <a href="#review-agent" class="btn review-agent-button" data-toggle="modal" data-target="#review-agent">REVIEW</a>
+            </div>
+        </div>
+        <div class="col-lg-3 description">
+            <div class="rate">
+                <% var rate = agent.rate || 0 %>
+                <% for(var i=0; i<rate; i++) { %>
+                    <i class="fa fa-star"></i>
+                <% } %>
+                <% for(var j=rate; j<5; j++) { %>
+                    <i class="fa fa-star-o"></i>
+                <% } %>
+            </div>
+            <div class="full-name"><%= (agent.firstName || '') + ' ' + (agent.lastName || '') %></div>
+            <div class="address"><%= agent.address || '' %></div>
+            <div class="exp"><%= (agent.experience || 0) + ' years experience'%></div>
+        </div>
+        <div class="col-lg-3">
+            <div class="progess">
+                <div style="width: <%= agent.matched%>%;"><%= ' ' + agent.matched + '%' %></div>
+            </div>
+            <a href="#" class="connect-linkedin">Connect with LinkedIn to view Share Connections</a>
+        </div>
+        <div class="col-lg-2">
+            <button class="btn chat-btn accepted">CHAT</button>
+        </div>
+        <div class="col-lg-2">
+            <a href="#" class="btn next-btn" disabled><i class="fa fa-angle-right"></i></a>
+        </div>
+    </div>
+    <% }) %>
+</div>
+<% } %>
+
+
+<% if(agentSentProposalList.length > 0){ %>
 <div class="row">
     <div class="col-md-12">
         <h3>Proposals Received:</h3>
     </div>
-    
     <% agentSentProposalList.forEach(function(agent){ %>
+    
     <div class="col-md-12 matches-item">
         <div class="col-lg-2">
             <div class="avatar">
@@ -69,6 +121,7 @@
     </div>
     <% }) %>
 </div>
+<% } %>
 
 <div class="row">
     <div class="col-md-12">

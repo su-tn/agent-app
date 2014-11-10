@@ -338,6 +338,10 @@ form label{
     padding: 50px 0 0 !important;
     margin-bottom: 0 !important;
     position: relative;
+    min-height: 60px;
+    -webkit-backface-visibility: hidden;
+    -webkit-box-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.08);
+    box-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.08);
 }
 
 .sticky-navigation .main-navigation .current a {
@@ -834,12 +838,12 @@ form label{
 
 .dash-matches-body .matches-item .progess{
     width: 100%;
-    height: 50px;
+    height: 40px;
     border: 1px solid #40C353;
     border-radius: 5px;
     color: white;
-    font-size: 35px;
-    line-height: 50px;
+    font-size: 26px;
+    line-height: 37px;
 }
 
 .dash-matches-body .matches-item .progess > div{
@@ -947,6 +951,7 @@ form label{
     text-transform: uppercase;
 }
 
+.dash-matches-body .chat-btn.accepted,
 #dash-agent .accepted {
     background-color: #69DB35;
 }
