@@ -104,6 +104,8 @@ app.post('/agent/tap', agentController.tapAgent);
 app.post('/agent/send-proposal', agentController.sendProposal);
 app.post('/agent/view-proposal', agentController.viewProposal);
 app.post('/agent/chosen', agentController.chosenAgent);
+app.post('/agent/review', agentController.reviewAgent);
+app.post('/agent/submit-review', agentController.submitReviewAgent);
 
 app.post('/account/update-profile', accountController.updateProfile);
 app.post('/account/update-profile-question', accountController.updateProfileQuestion);

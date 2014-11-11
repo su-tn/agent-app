@@ -38,7 +38,7 @@
                 <i class="fa fa-user"></i>
                 <% } %>
                 
-                <a href="#review-agent" class="btn review-agent-button" data-toggle="modal" data-target="#review-agent">REVIEW</a>
+                <button class="btn review-agent-button" onclick="reviewAgent('<%= agent.objectId %>')">REVIEW</a>
             </div>
         </div>
         <div class="col-lg-3 description">
@@ -234,44 +234,5 @@
 </div>
 
 
-<div class="modal fade view-modal" id="review-agent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        
-        <div class="row">
-            <div class="col-lg-12">
-                <h3 class="modal-heading">Review Doug Bend</h3>
-                <div class="modal-avatar">
-                    <img src="http://www.iconsdb.com/icons/preview/gray/manager-xxl.png" width="90">
-                    <div class="summary">
-                        Our of 5 stars, how would you rate your overall experience with Doug Bend?
-                        <div class="rate">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                            <i class="fa fa-star-o"></i>
-                        </div>
-                    </div>
-                </div>
-                <p class="description">
-                    Please provide additional comments on your experience with Doug Bend:
-                </p>
-                
-                <form action="" method="POST">
-                    <input type="hidden" name="agent_id" value=""/>
-                    <textarea class="form-control" name="comment" placeholder="Type comments here"></textarea>
-                    <br />
-                    <button type="submit" class="btn standard-button view-proposal-button">
-                        <i class="fa fa-download"></i>
-                        SUBMIT REVIEW
-                    </button>
-                </form>
-            </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<div class="modal fade view-modal" id="review-agent" tabindex="-1" 
+    role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>

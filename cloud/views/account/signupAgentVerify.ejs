@@ -11,34 +11,178 @@
         <div class='row'>
             <div class="col-lg-9">
                 <div class="row">
-                    <div class="col-lg-3 step current"><div>1</div></div>
-                    <div class="col-lg-3 step"><div>2</div></div>
+                    <div class="col-lg-3 step active"><div>1</div></div>
+                    <div class="col-lg-3 step current"><div>2</div></div>
                     <div class="col-lg-3 step"><div>3</div></div>
                 </div>
             </div>
             <div class="col-lg-7">
                 <div class="">
                     <h3 class="signup-title">Quickly sign up to your matches</h3>
-                    <form rel="form" method="POST" id="signup_agent_verify_form">
+                    
+                    <form rel="form" method="POST" id="signup_agent_verify_form" class="form-horizontal">
                         <div class="form-group">
-                            <label>Enter Your Agent ID Number:</label>
-                            <input type="text" name="agent_id" id="agent-id" class="form-control" required=""/>
-                            <span class="error"></span>
+                            <label class="col-sm-4">First Name:</label>
+                            <div class="col-sm-8">
+                                <span class="hidden-text"><%= user.get('firstName') || '' %></span>
+                                <i class="fa fa-pencil"></i>
+                                <input type="text" class="hidden-input" id="first-name" name="firstName" value="<%= user.get('firstName') || '' %>">
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label>Enter Your Email Address:</label>
-                            <input type="email" name="email" id="email" class="form-control" required=""/>
-                            <span class="error"></span>
+                            <label class="col-sm-4">Last Name:</label>
+                            <div class="col-sm-8">
+                            
+                                <span class="hidden-text"><%= user.get('lastName') || '' %></span>
+                                <i class="fa fa-pencil"></i>
+                                <input type="text" class="hidden-input" id="last-name" name="lastName" value="<%= user.get('lastName') || '' %>">
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label>Confirm Your Email Address:</label>
-                            <input type="email" name="confirm-email" id="confirm-email" class="form-control" required=""/>
-                            <span class="error"></span>
+                            <label class="col-sm-4">Email:</label>
+                            <div class="col-sm-8">
+                                <span><%= user.get('email') %></span>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label>Enter Your Password:</label>
-                            <input type="password" name="password" id="password" class="form-control" required=""/>
-                            <span class="error"></span>
+                            <label class="col-sm-4">Profile Image:</label>
+                            <div class="col-sm-8">
+                                <input type="file"/>
+                                <button class="btn btn-default standard-button">Upload</button>
+                                <div class="help-block">
+                                    Photo should be at least 180px by 180px and jpg format.
+                                </div>
+                                <% if(user.get('image')){ %>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <a href="#">Remove</a>
+                                    </div>
+                                    <div class="page-body">
+                                        <img src="<%= user.get('image') %>" width="100"/>
+                                    </div>
+                                </div>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4">City:</label>
+                            <div class="col-sm-8">
+                                <span><%= user.get('city') || '' %></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4">State:</label>
+                            <div class="col-sm-8">
+                                <span><%= user.get('state') || '' %></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4">Zip/postal code:</label>
+                            <div class="col-sm-8">
+                                <span><%= user.get('zip') || '' %></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4">Country:</label>
+                            <div class="col-sm-8">
+                                <span><%= user.get('country') || '' %></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4">Phone:</label>
+                            <div class="col-sm-8">
+                                <span><%= user.get('phone') || '' %></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4">Real Estate license state:</label>
+                            <div class="col-sm-8">
+                                <span><%= user.get('licenseState') || '' %></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4">Real Estate license number:</label>
+                            <div class="col-sm-8">
+                                <span><%= user.get('licenseNumber') || '' %></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4">Service Areas::</label>
+                            <div class="col-sm-8">
+                                <span><%= user.get('serviceAreas') || '' %></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4">Languages you speak:</label>
+                            <% var language = user.get('languages') || [] %>
+                            <% var agentSpecialties = user.get('agentSpecialties') || [] %>
+                            <div class="col-sm-8">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="language" value="es" <%= (language.indexOf('es') != -1) ? 'checked' : '' %> > 
+                                        Spanish
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="language" value="fr" <%= (language.indexOf('fr') != -1) ? 'checked' : '' %>> 
+                                        French
+                                        </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="language" value="cmn" <%= (language.indexOf('cmn') != -1) ? 'checked' : '' %>> 
+                                        Mandarin
+                                        </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="language" value="ru" <%= (language.indexOf('ru') != -1) ? 'checked' : '' %>> 
+                                        Russian
+                                        </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4">Agent specialties:</label>
+                            <div class="col-sm-8">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="agentSpecialties" value="1" <%= (agentSpecialties.indexOf('1') != -1) ? 'checked' : '' %> > 
+                                        Buyer's agent
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="agentSpecialties" value="2" <%= (agentSpecialties.indexOf('2') != -1) ? 'checked' : '' %>> 
+                                        Listing Agent
+                                        </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="agentSpecialties" value="3" <%= (agentSpecialties.indexOf('3') != -1) ? 'checked' : '' %>> 
+                                        Relocation
+                                        </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="agentSpecialties" value="4" <%= (agentSpecialties.indexOf('4') != -1) ? 'checked' : '' %>> 
+                                        Forclosure
+                                        </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="agentSpecialties" value="5" <%= (agentSpecialties.indexOf('5') != -1) ? 'checked' : '' %>> 
+                                        Short sale
+                                        </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="agentSpecialties" value="6" <%= (agentSpecialties.indexOf('6') != -1) ? 'checked' : '' %>> 
+                                        Consulting
+                                        </label>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group align-center">
                             <a class="btn standard-nocolor-button" onclick="clearForm('#signup_agent_verify_form')">Clear form</a>
@@ -52,6 +196,27 @@
     </div>
     <!-- /END CONTAINER -->
 </section>
+
+<script>
+    $(function(){
+        $('.fa-pencil').click(function () {
+            $(this).toggle();
+            $(this).next().css('visibility', 'visible').focus();
+            $(this).prev().toggle();
+        })
+        
+        $('.hidden-input').blur(function () {
+            $(this).css('visibility', 'hidden');
+            $(this).parent().find('.hidden-text').toggle();
+            $(this).prev().toggle();
+            if ($(this).val() != "" && $(this).val() != null) {
+                $(this).parent().find('.hidden-text').text($(this).val());
+            } else {
+                $(this).val($(this).parent().find('.hidden-text').text());
+            }
+        })
+    })
+</script>
 
 <!-- Include the footer partial -->
 <% include ../_footer %>

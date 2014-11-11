@@ -15,7 +15,7 @@ body {
     font-size: 16px;
     font-weight: 300;
     color: #313131;
-    line-height: 24px;
+    line-height: 30px;
     text-align: center;
     overflow-x: hidden !important;
     margin: auto !important;
@@ -338,10 +338,7 @@ form label{
     padding: 50px 0 0 !important;
     margin-bottom: 0 !important;
     position: relative;
-    min-height: 60px;
-    -webkit-backface-visibility: hidden;
-    -webkit-box-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.08);
-    box-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.08);
+    
 }
 
 .sticky-navigation .main-navigation .current a {
@@ -903,12 +900,15 @@ form label{
 }
 
 .view-modal .modal-avatar{
-    margin: 25px 0 35px 0;
+    margin: 25px 0;
+}
+
+.view-modal .summary{
     font-style: italic;
 }
 
 .view-modal .modal-avatar img,
-.view-modal .modal-avatar div{
+.view-modal .modal-avatar > div{
     display: inline-block;
 }
 
@@ -936,6 +936,63 @@ form label{
 .view-modal .footer-buttons .btn:hover{
     border: none;
     background-color: #ebebeb;
+}
+
+
+/*---------------------------------------
+   SECTION:  MODAL - REVIEW-AGENT            
+-----------------------------------------*/
+
+#review-agent textarea{
+    background-color: #EBEBEB;
+    border: none;
+}
+
+.rating{
+    float: left;
+    color: #E1E2DE;
+    font-size: 28px;
+    unicode-bidi: bidi-override;
+    direction: rtl;
+}
+
+.rating  > [type*="radio"] {
+    display: none;
+}
+
+.rating  > [type*="radio"] + label {
+    /* only enough room for the star */
+    display: inline-block;
+    overflow: hidden;
+    text-indent: 9999px;
+    width: 1em;
+    white-space: nowrap;
+}
+
+.rating  > [type*="radio"] + label:before {
+    display: inline-block;
+    text-indent: -9999px;
+    color: #E1E2DE;
+}
+
+.rating  > [type*="radio"]:checked ~ label:before,
+.rating  > [type*="radio"] + label:hover ~ label:before,
+.rating  > [type*="radio"] + label:hover:before {
+    color: #AFB1AD;
+}
+
+.rating > .star-cb-clear[type*="radio"] + label {
+    text-indent: -9999px;
+    width: .5em;
+}
+
+.rating:hover > [type*="radio"] + label:before {
+    color: #E1E2DE;
+}
+
+.rating:hover > [type*="radio"] + label:hover ~ label:before,
+.rating:hover > [type*="radio"] + label:hover:before {
+    color: #AFB1AD;
 }
 
 /*---------------------------------------
@@ -977,10 +1034,9 @@ form label{
     line-height: 16px;
 }
 
-#dash_profile_form .hidden-input{
+.hidden-input{
     visibility: hidden;
 }
-
 
 .loading_content{
     position: fixed;

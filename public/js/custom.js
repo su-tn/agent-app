@@ -313,6 +313,42 @@ var chosenAgent = function(){
     });
 }
 
+var reviewAgent = function(agentId){
+    $('.loading_content').show();
+    
+    $.post('/agent/review', {agentId: agentId}, function(res){
+        $('.loading_content').hide();
+        
+        if(res.error) showMessage('Error', res.error);
+        else {
+            $('#review-agent').empty();
+            $('#review-agent').append(res).modal('show');
+        }
+    });
+}
+
+var submitReviewAgent = function(){
+    var comment = $('#comment').val();
+    if(!comment){
+        showMessage('Error', 'Comment is required');
+        return;    
+    }
+    
+    $('#review-agent').modal('hide');
+    $('.loading_content').show();
+    
+    $.post('/agent/submit-review', $('#review_agent_form').serialize(), function(res){
+        $('.loading_content').hide();
+        
+        if(res.error) showMessage('Error', res.error);
+        else {
+            showMessage(null, 'Review successfully');
+            return;
+        }
+    });
+}
+
+
 $(function(){
     
     $('.show-tooltip').tooltip();
